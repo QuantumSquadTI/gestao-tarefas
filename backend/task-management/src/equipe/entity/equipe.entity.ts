@@ -1,6 +1,8 @@
+import { TarefaEntity } from "src/tarefa/entity/tarefa.entity"
 import { UsuarioEntity } from "src/usuario/entity/usuario.entity"
-import { Column, ManyToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 
+@Entity()
 export class EquipeEntity{
 
     @PrimaryGeneratedColumn()
@@ -17,4 +19,7 @@ export class EquipeEntity{
 
     @ManyToMany(() => UsuarioEntity, usuario => usuario.equipes)
     usuarios: Array<UsuarioEntity>
+
+    @OneToMany(() => TarefaEntity, tarefa => tarefa.equipe)
+    tarefas: TarefaEntity
 }

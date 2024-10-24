@@ -1,20 +1,30 @@
 import { EquipeEntity } from "src/equipe/entity/equipe.entity";
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { PapelEntity } from "./papel.entity";
+import { TarefaEntity } from "src/tarefa/entity/tarefa.entity";
 
 @Entity()
 export class UsuarioEntity{
     @PrimaryGeneratedColumn()
-    id: number
+    idUser: number;
 
     @Column()
-    nome: string
+    nome: string;
 
     @Column()
-    email: string
+    email: string;
 
     @Column()
-    senha: string
+    senha: string;
+
+    @ManyToOne(() => PapelEntity, papeis => papeis.usuario)
+    idPapel: PapelEntity;
 
     @ManyToMany(() => EquipeEntity, equipes => equipes.usuarios)
-    equipes: Array<EquipeEntity>
+    @JoinTable()
+    equipes: Array<EquipeEntity>;
+
+    @ManyToMany(() => TarefaEntity, tarefas => tarefas.usuario)
+    @JoinTable()
+    tarefas: Array<TarefaEntity>;
 }
