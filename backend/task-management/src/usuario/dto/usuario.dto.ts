@@ -1,9 +1,11 @@
-import { IsArray, IsEmail, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsEmail, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { PapelDto } from "./papel.dto";
 import { TarefaDto } from "src/tarefa/dto/tarefa.dto";
 import { EquipeDto } from "src/equipe/dto/equipe.dto";
 
 export class UsuarioDto{
+    
+    id: number;
 
     @IsString()
     @IsNotEmpty()
@@ -29,6 +31,7 @@ export class UsuarioDto{
     listaTarefas: Array<TarefaDto>;
 
     constructor(
+        id: number,
         nome: string,
         email: string,
         senha: string,
@@ -36,6 +39,7 @@ export class UsuarioDto{
         listaEquipes: Array<EquipeDto>,
         listaTarefas: Array<TarefaDto>
     ) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;

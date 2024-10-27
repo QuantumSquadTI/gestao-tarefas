@@ -3,6 +3,8 @@ import { TarefaDto } from "src/tarefa/dto/tarefa.dto"
 import { UsuarioDto } from "src/usuario/dto/usuario.dto"
 
 export class EquipeDto{
+
+    id: number;
     
     @IsString()
     @IsNotEmpty()
@@ -25,12 +27,14 @@ export class EquipeDto{
     tarefas: Array<TarefaDto>;
 
     constructor(
+        id: number,
         nome: string, 
         descricao: string, 
         fotoPerfil: string, 
         usuarios: Array<UsuarioDto>,
         tarefas: Array<TarefaDto>
     ) {
+        this.id = id,
         this.nome = nome;
         this.descricao = descricao;
         this.fotoPerfil = fotoPerfil;

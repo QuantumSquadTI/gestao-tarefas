@@ -4,6 +4,20 @@ import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "t
 
 @Entity()
 export class EquipeEntity{
+    
+    constructor(
+        nome: string,
+        descricao: string,
+        fotoPerfil: string,
+        usuarios: Array<UsuarioEntity> = [],
+        tarefas: Array<TarefaEntity> = []
+    ) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.fotoPerfil = fotoPerfil;
+        this.usuarios = usuarios;
+        this.tarefas = tarefas;
+    }
 
     @PrimaryGeneratedColumn()
     id: number
@@ -21,5 +35,5 @@ export class EquipeEntity{
     usuarios: Array<UsuarioEntity>
 
     @OneToMany(() => TarefaEntity, tarefa => tarefa.equipe)
-    tarefas: TarefaEntity
+    tarefas: Array<TarefaEntity>
 }

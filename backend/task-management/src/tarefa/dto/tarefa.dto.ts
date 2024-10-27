@@ -5,6 +5,8 @@ import { UsuarioDto } from "src/usuario/dto/usuario.dto";
 
 export class TarefaDto{
 
+    id: number;
+
     @IsString()
     @IsNotEmpty()
     titulo: string;
@@ -28,6 +30,7 @@ export class TarefaDto{
     usuarios: Array<UsuarioDto>;
 
     constructor(
+        id: number,
         titulo: string,
         descricao: string,
         prazo: string,
@@ -35,6 +38,7 @@ export class TarefaDto{
         equipe: EquipeDto,
         usuarios: Array<UsuarioDto>
     ) {
+        this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.prazo = prazo;

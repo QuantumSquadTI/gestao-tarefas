@@ -9,6 +9,12 @@ export enum TarefaStatus{
 
 @Entity()
 export class StatusEntity{
+    
+    constructor(status: TarefaStatus = TarefaStatus.PENDENTE, tarefas: Array<TarefaEntity> = []) {
+        this.status = status;
+        this.tarefas = tarefas;
+    }
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -20,5 +26,5 @@ export class StatusEntity{
     status: TarefaStatus;
 
     @OneToMany(() => TarefaEntity, tarefa => tarefa.status)
-    tarefas: TarefaEntity;
+    tarefas: Array<TarefaEntity>;
 }

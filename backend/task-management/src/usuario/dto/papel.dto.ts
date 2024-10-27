@@ -4,6 +4,8 @@ import { UsuarioDto } from "./usuario.dto";
 
 export class PapelDto{
 
+    id: number;
+
     @IsNotEmpty()
     @IsEnum(Papeis)
     papel: Papeis;
@@ -12,7 +14,8 @@ export class PapelDto{
     @IsOptional()
     usuarios?: Array<UsuarioDto>
 
-    constructor(papel: Papeis, usuarios?: Array<UsuarioDto>) {
+    constructor(id: number, papel: Papeis, usuarios?: Array<UsuarioDto>) {
+        this.id = id;
         this.papel = papel;
         this.usuarios = usuarios;
     }

@@ -19,6 +19,7 @@ export class Usuario{
         papel: Papel,
         listaEquipes: Array<Equipe> = [],
         listaTarefas: Array<Tarefa> = []
+
     ) {
         this._id = id;
         this._nome = nome;

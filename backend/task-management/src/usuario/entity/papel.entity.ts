@@ -8,6 +8,15 @@ export enum Papeis{
 
 @Entity()
 export class PapelEntity{
+
+    constructor(
+        papel: Papeis = Papeis.COLABORADOR,
+        usuario: Array<UsuarioEntity> = []
+    ) {
+        this.papel = papel;
+        this.usuario = usuario;
+    }
+
     @PrimaryGeneratedColumn()
     idPapel: number;
 

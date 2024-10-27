@@ -5,6 +5,23 @@ import { TarefaEntity } from "src/tarefa/entity/tarefa.entity";
 
 @Entity()
 export class UsuarioEntity{
+
+    constructor(
+        nome: string,
+        email: string,
+        senha: string,
+        papel?: PapelEntity,
+        equipes?: Array<EquipeEntity>,
+        tarefas?: Array<TarefaEntity>
+    ) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.papel = papel;
+        this.equipes = equipes || [];
+        this.tarefas = tarefas || [];
+    }
+    
     @PrimaryGeneratedColumn()
     idUser: number;
 
@@ -18,7 +35,7 @@ export class UsuarioEntity{
     senha: string;
 
     @ManyToOne(() => PapelEntity, papeis => papeis.usuario)
-    idPapel: PapelEntity;
+    papel: PapelEntity;
 
     @ManyToMany(() => EquipeEntity, equipes => equipes.usuarios)
     @JoinTable()
@@ -27,4 +44,6 @@ export class UsuarioEntity{
     @ManyToMany(() => TarefaEntity, tarefas => tarefas.usuario)
     @JoinTable()
     tarefas: Array<TarefaEntity>;
+
+    
 }
