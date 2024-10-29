@@ -8,6 +8,8 @@ import { TarefaEntity } from './tarefa/entity/tarefa.entity';
 import { Status } from './tarefa/domain/status.domain';
 import { StatusEntity } from './tarefa/entity/status.entity';
 import { EquipeEntity } from './equipe/entity/equipe.entity';
+import { UsuarioController } from './usuario/usuario.controller';
+import { UsuarioService } from './usuario/usuario.service';
 
 @Module({
   imports: [
@@ -22,7 +24,7 @@ import { EquipeEntity } from './equipe/entity/equipe.entity';
       synchronize: true
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, UsuarioController],
+  providers: [AppService, UsuarioService],
 })
 export class AppModule {}

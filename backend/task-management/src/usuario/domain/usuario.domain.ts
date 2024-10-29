@@ -32,6 +32,9 @@ export class Usuario{
 
     //Métodos
 
+    validarSenha(senha: string){
+        
+    }
 
 
     //GETTERs
