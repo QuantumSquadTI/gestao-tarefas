@@ -10,6 +10,8 @@ import { StatusEntity } from './tarefa/entity/status.entity';
 import { EquipeEntity } from './equipe/entity/equipe.entity';
 import { UsuarioController } from './usuario/usuario.controller';
 import { UsuarioService } from './usuario/usuario.service';
+import { EmailService } from './email/email.service';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
@@ -23,8 +25,9 @@ import { UsuarioService } from './usuario/usuario.service';
       entities: [UsuarioEntity, PapelEntity, TarefaEntity, StatusEntity, EquipeEntity],
       synchronize: true
     }),
+    UsuarioModule,
   ],
   controllers: [AppController, UsuarioController],
-  providers: [AppService, UsuarioService],
+  providers: [AppService, UsuarioService, EmailService],
 })
 export class AppModule {}

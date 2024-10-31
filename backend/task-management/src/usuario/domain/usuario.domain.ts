@@ -31,9 +31,16 @@ export class Usuario{
     }
 
     //Métodos
+    validarSenha(senha: string): boolean{
+        const temMaiusc: boolean = senha.match(/[A-Z]/) !== null;
+        const temMinusc: boolean = senha.match(/[a-z]/) !== null;
+        const temNumero: boolean = senha.match(/[0-9]/) !== null;
 
-    validarSenha(senha: string){
-        
+        if (senha.length >= 8 && temMaiusc && temMinusc && temNumero){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
