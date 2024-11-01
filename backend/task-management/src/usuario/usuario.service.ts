@@ -42,15 +42,14 @@ export class UsuarioService{
             throw new SenhaInvalidaException();
         }
 
-        // ---- Enviar um email de confirmação 
+        // ---- Enviar um email de confirmação
         const token = 'token gerado'
         await this.emailService.enviarEmailDeConfirmacao(email, token);
+        // ---- Salva Usuario no sistem
 
-
-        //Enviar um email para o cara
-        //Verificar se tem acesso completo ao sistema.
-
-        return Usuario;
+        return UsuarioMapper.entityToDomain(
+            await this.usuarioRepository.save(UsuarioMapper.domainToEntity(novoUsuario))
+        )
     }
 
     async searchByEmail(email: string): Promise<Usuario> {
