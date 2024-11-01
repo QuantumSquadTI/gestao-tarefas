@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { authPlugins } from 'mysql2';
 import * as nodemailer from 'nodemailer';
-import { Subject } from 'rxjs';
 
 @Injectable()
 export class EmailService {
@@ -13,8 +12,8 @@ export class EmailService {
         }
     })
 
-    async enviarEmailDeConfirmacao(para: string, token: string){
-        const urlConfirmacao = `http://localhost:3000/confirmar-cadastro?token=${token}`; //qual link?
+    async emailConfirmarCadastro(para: string, token: string){
+        const urlConfirmacao = `http://localhost:3000/confirmar-cadastro?token=${token}`;
         await this.transportador.sendMail({
             from: "Quantum Squad quantumsquadti@gmail.com",
             para,
@@ -22,14 +21,14 @@ export class EmailService {
             text: `Olá,
 
             Clique no link para confirmar seu cadastro:
-            http://seusite.com/confirmar-cadastro?token=12345abcdef
+            ${urlConfirmacao}
             
             Atenciosamente,
             Equipe Quantum Squad`,
             html: `
                 <p>Olá,</p>
                 <p>Clique no link abaixo para confirmar seu cadastro:</p>
-                <a href="http://seusite.com/confirmar-cadastro?token=12345abcdef">
+                <a href="${urlConfirmacao}>
                     Confirmar Cadastro
                 </a>
                 <br><br>

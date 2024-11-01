@@ -12,7 +12,8 @@ export class UsuarioEntity{
         senha: string,
         papel?: PapelEntity,
         equipes?: Array<EquipeEntity>,
-        tarefas?: Array<TarefaEntity>
+        tarefas?: Array<TarefaEntity>,
+        ativo?: boolean 
     ) {
         this.nome = nome;
         this.email = email;
@@ -20,6 +21,7 @@ export class UsuarioEntity{
         this.papel = papel;
         this.equipes = equipes || [];
         this.tarefas = tarefas || [];
+        this.ativo = ativo;
     }
     
     @PrimaryGeneratedColumn()
@@ -45,5 +47,6 @@ export class UsuarioEntity{
     @JoinTable()
     tarefas: Array<TarefaEntity>;
 
-    
+    @Column()
+    ativo: boolean;
 }

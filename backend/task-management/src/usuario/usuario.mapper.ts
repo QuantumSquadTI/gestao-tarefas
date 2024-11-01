@@ -27,7 +27,8 @@ export class UsuarioMapper{
             entity.senha,
             papel,
             equipes,
-            tarefas
+            tarefas,
+            entity.ativo
         )
     }
 
@@ -42,7 +43,8 @@ export class UsuarioMapper{
             domain.getSenha,
             papel,
             equipes,
-            tarefas
+            tarefas,
+            domain.isAtivo
         )
     }
 
@@ -58,7 +60,8 @@ export class UsuarioMapper{
             dto.senha,
             papel,
             equipes,
-            tarefas
+            tarefas,
+            dto.ativo
         );
     }
 
@@ -74,7 +77,8 @@ export class UsuarioMapper{
             domain.getSenha,
             papel,
             equipes,
-            tarefas
+            tarefas,
+            domain.isAtivo
         );
     }
 }

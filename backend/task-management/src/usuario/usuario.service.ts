@@ -8,6 +8,8 @@ import { UsuarioNaoEncontradoException } from "src/exceptions/usuarioNaoEncontra
 import { UsuarioJaCadastradoException } from "src/exceptions/usuarioJaCadastrado.exception";
 import { SenhaInvalidaException } from "src/exceptions/senhaInvalida.exception";
 import { EmailService } from "src/email/email.service";
+import { AppService } from "src/app.service";
+import * as jwt from 'jsonwebtoken';
 
 
 @Injectable()
@@ -16,10 +18,10 @@ export class UsuarioService{
     constructor(
         @InjectRepository(UsuarioEntity)
         private readonly usuarioRepository: Repository<UsuarioEntity>,
-        private readonly emailService: EmailService
-    ){}
 
-    
+        private readonly emailService: EmailService,
+        private readonly appService: AppService
+    ){}
 
     async cadastrar(novoUsuario: Usuario): Promise <Usuario>{
         // ---- Atributos
@@ -43,10 +45,10 @@ export class UsuarioService{
         }
 
         // ---- Enviar um email de confirmação
-        const token = 'token gerado'
-        await this.emailService.enviarEmailDeConfirmacao(email, token);
-        // ---- Salva Usuario no sistem
+        const token = this.gerarToken(email)
+        await this.emailService.emailConfirmarCadastro(email, token);
 
+        // ---- Salva Usuario no sistema
         return UsuarioMapper.entityToDomain(
             await this.usuarioRepository.save(UsuarioMapper.domainToEntity(novoUsuario))
         )
@@ -58,5 +60,25 @@ export class UsuarioService{
             throw new UsuarioNaoEncontradoException();
         }
         return UsuarioMapper.entityToDomain(user);
+    }
+
+    private gerarToken(email: string): string{
+        const payload = { email };
+        const segredo = 'G7@!pX8$uM^3kN2&rL6*qV1#tFzJ9zA';
+        const opcoes = { expiresIn: '1h' }
+    
+        return jwt.sign(payload, segredo, opcoes)
+    }
+
+    async confirmarCadastro(token: string) {
+        try {
+            const segredo = 'G7@!pX8$uM^3kN2&rL6*qV1#tFzJ9zA';
+            const payload = jwt.verify(token, segredo) as { email:string };
+            
+            const usuario = await this.usuarioRepository.findOne({ where: { email: payload.email } });
+            
+        } catch (error) {
+            // Tratar erro (token inválido ou expirado)
+        }
     }
 }

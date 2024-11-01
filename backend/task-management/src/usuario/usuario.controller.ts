@@ -10,14 +10,14 @@ export class UsuarioController{
         private usuarioService: UsuarioService
     ){}
     
-    @Post("cadastrar")
+    @Post("")
     @HttpCode(HttpStatus.CREATED)
     async cadastrar(@Body() novoUsuario: UsuarioDto) {
 
         try{
             const usuarioRegistrado: UsuarioDto = UsuarioMapper.domainToDto(
                 await this.usuarioService.cadastrar(UsuarioMapper.dtoToDomain(novoUsuario))
-            );
+            )
 
             const location = `/usuario/cadastrar/${usuarioRegistrado.id}`;
 

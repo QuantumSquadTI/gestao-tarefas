@@ -1,4 +1,4 @@
-import { IsArray, IsEmail, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsArray, IsBoolean, IsEmail, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { PapelDto } from "./papel.dto";
 import { TarefaDto } from "src/tarefa/dto/tarefa.dto";
 import { EquipeDto } from "src/equipe/dto/equipe.dto";
@@ -30,6 +30,10 @@ export class UsuarioDto{
     @IsNotEmpty()
     listaTarefas: Array<TarefaDto>;
 
+    @IsBoolean()
+    @IsNotEmpty()
+    ativo: boolean;
+
     constructor(
         id: number,
         nome: string,
@@ -37,7 +41,8 @@ export class UsuarioDto{
         senha: string,
         papel: PapelDto,
         listaEquipes: Array<EquipeDto>,
-        listaTarefas: Array<TarefaDto>
+        listaTarefas: Array<TarefaDto>,
+        ativo: boolean
     ) {
         this.id = id;
         this.nome = nome;
@@ -46,5 +51,6 @@ export class UsuarioDto{
         this.papel = papel;
         this.listaEquipes = listaEquipes;
         this.listaTarefas = listaTarefas;
+        this.ativo = ativo;
     }
 }

@@ -10,6 +10,7 @@ export class Usuario{
     private _papel: Papel;
     private _listaEquipes: Array<Equipe>;
     private _listaTarefas: Array<Tarefa>;
+    private _ativo: boolean;
 
     constructor(
         id: number,
@@ -18,8 +19,8 @@ export class Usuario{
         senha: string,
         papel: Papel,
         listaEquipes: Array<Equipe> = [],
-        listaTarefas: Array<Tarefa> = []
-
+        listaTarefas: Array<Tarefa> = [],
+        ativo: boolean
     ) {
         this._id = id;
         this._nome = nome;
@@ -28,6 +29,7 @@ export class Usuario{
         this._papel = papel;
         this._listaEquipes = listaEquipes;
         this._listaTarefas = listaTarefas;
+        this._ativo = ativo
     }
 
     //Métodos
@@ -73,6 +75,10 @@ export class Usuario{
         return this._listaTarefas;
     }
 
+    get isAtivo(): boolean {
+        return this._ativo;
+    }
+
     //SETTERs
     set setNome(nome: string) {
         this._nome = nome;
@@ -96,5 +102,9 @@ export class Usuario{
 
     set setListaTarefas(lista: Array<Tarefa>) {
         this._listaTarefas = lista;
+    }
+
+    set setAtivo(ativo: boolean) {
+        this._ativo = ativo;
     }
 }
