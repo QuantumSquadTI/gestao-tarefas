@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Res, HttpStatus, Response, HttpCode, HttpException } from "@nestjs/common";
+import { Body, Controller, Get, Post, Res, HttpStatus, Response, HttpCode, HttpException, Query } from "@nestjs/common";
 import { UsuarioService } from "./usuario.service";
 import { UsuarioDto } from "./dto/usuario.dto";
 import { UsuarioMapper } from "./usuario.mapper";
@@ -19,7 +19,7 @@ export class UsuarioController{
                 await this.usuarioService.cadastrar(UsuarioMapper.dtoToDomain(novoUsuario))
             )
 
-            const location = `/usuario/cadastrar/${usuarioRegistrado.id}`;
+            const location = `/usuario/cadastrar/${usuarioRegistrado.idU}`;
 
             return {
                 statusCode: HttpStatus.CREATED,
@@ -28,13 +28,17 @@ export class UsuarioController{
                 location
             };
         }catch(error){
-            throw new HttpException(
-                {
-                    statuscode: HttpStatus.INTERNAL_SERVER_ERROR,
-                    message: error.message || "Erro ao cadastrar usuário",
-                },
-                HttpStatus.INTERNAL_SERVER_ERROR
-            )
+            console.error("Erro ao cadastrar usuário:", error);
+            throw new HttpException("Erro ao cadastrar usuário", HttpStatus.INTERNAL_SERVER_ERROR)
         }
+    }
+
+    @Get('confirmar-cadastro')
+    async confirmarCadastro(@Query('token') token: string){
+        if (!token){
+            throw new HttpException("Token não encontrado", HttpStatus.BAD_REQUEST)
+        }
+
+        return await this.usuarioService.confirmarCadastro(token)
     }
 }

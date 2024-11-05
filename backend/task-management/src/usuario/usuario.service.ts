@@ -1,16 +1,11 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { Usuario } from "./domain/usuario.domain";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { UsuarioEntity } from "./entity/usuario.entity";
 import { UsuarioMapper } from "./usuario.mapper";
-import { UsuarioNaoEncontradoException } from "src/exceptions/usuarioNaoEncontrado.exception";
-import { UsuarioJaCadastradoException } from "src/exceptions/usuarioJaCadastrado.exception";
-import { SenhaInvalidaException } from "src/exceptions/senhaInvalida.exception";
 import { EmailService } from "src/email/email.service";
-import { AppService } from "src/app.service";
 import * as jwt from 'jsonwebtoken';
-
+import { UsuarioEntity } from "./entity/usuario.entity";
 
 @Injectable()
 export class UsuarioService{
@@ -18,9 +13,7 @@ export class UsuarioService{
     constructor(
         @InjectRepository(UsuarioEntity)
         private readonly usuarioRepository: Repository<UsuarioEntity>,
-
-        private readonly emailService: EmailService,
-        private readonly appService: AppService
+        private readonly emailService: EmailService
     ){}
 
     async cadastrar(novoUsuario: Usuario): Promise <Usuario>{
@@ -29,19 +22,17 @@ export class UsuarioService{
         const senha = novoUsuario.getSenha;
 
         // ---- Lógica de ver se ja tem alguem registrado com o email
-        const resultado: (Usuario | undefined) = UsuarioMapper.entityToDomain(
-            await this.usuarioRepository.findOne({where: { email }})
-        );
+        const resultado: (UsuarioEntity | undefined) = await this.usuarioRepository.findOne({where: { email }})
 
         if (resultado){
-            throw new UsuarioJaCadastradoException();
+            throw new HttpException("Usuario já cadastrado", HttpStatus.CONFLICT);
         }
 
         // ---- Lógica de validar senha
         const senhaCerta :boolean = novoUsuario.validarSenha(senha);
 
         if (!senhaCerta) {
-            throw new SenhaInvalidaException();
+            throw new HttpException("Senha inválida", HttpStatus.BAD_REQUEST);
         }
 
         // ---- Enviar um email de confirmação
@@ -57,7 +48,7 @@ export class UsuarioService{
     async searchByEmail(email: string): Promise<Usuario> {
         const user = await this.usuarioRepository.findOne({where: { email }});
         if (!user) {
-            throw new UsuarioNaoEncontradoException();
+            throw new HttpException("Usuário não encontrado" ,HttpStatus.NOT_FOUND);
         }
         return UsuarioMapper.entityToDomain(user);
     }
@@ -72,13 +63,33 @@ export class UsuarioService{
 
     async confirmarCadastro(token: string) {
         try {
+            // ---- Atributos
             const segredo = 'G7@!pX8$uM^3kN2&rL6*qV1#tFzJ9zA';
             const payload = jwt.verify(token, segredo) as { email:string };
             
-            const usuario = await this.usuarioRepository.findOne({ where: { email: payload.email } });
+            // ---- Buscando Usuario
+            const usuario = UsuarioMapper.entityToDomain(await this.usuarioRepository.findOne({ where: { email: payload.email } }));
+
+            // ---- Se não encontrar / Se já estiver ativo
+            if(!usuario){
+                throw new HttpException("Usuário não encontrado", HttpStatus.NOT_FOUND);
+            }
+            if (usuario.isAtivo) {
+                throw new HttpException('Usuário já confirmado', HttpStatus.BAD_REQUEST);
+            }
+
+            // ---- Torná-lo ativo e salvá-lo
+            usuario.isAtivo;
+            await this.usuarioRepository.save(UsuarioMapper.domainToEntity(usuario));
+
+
+            return {
+                message:"Confirmação de cadastro bem sucedida!", 
+                statusCode: HttpStatus.OK
+            }
             
         } catch (error) {
-            // Tratar erro (token inválido ou expirado)
+            throw new HttpException('Erro ao confirmar cadastro', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

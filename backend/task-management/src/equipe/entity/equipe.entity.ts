@@ -1,39 +1,31 @@
-import { TarefaEntity } from "src/tarefa/entity/tarefa.entity"
-import { UsuarioEntity } from "src/usuario/entity/usuario.entity"
-import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { UsuarioEquipeEntity } from "src/usuario_equipe/entity/usu.eq.entity"
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 
-@Entity()
+@Entity('equipe')
 export class EquipeEntity{
-    
+
+    @PrimaryGeneratedColumn('uuid')
+    idE: number;
+
+    @Column({type: 'varchar', length: 50})
+    nome: string;
+
+    @Column({type: 'varchar'})
+    descricao: string;
+
+    @Column({type: 'varchar', length: 255})
+    fotoEquipe: string;
+
+    @OneToMany(() => UsuarioEquipeEntity, usuarioEquipe => usuarioEquipe.equipe)
+    equipeUsuarios: UsuarioEquipeEntity[];
+
     constructor(
         nome: string,
         descricao: string,
-        fotoPerfil: string,
-        usuarios: Array<UsuarioEntity> = [],
-        tarefas: Array<TarefaEntity> = []
+        fotoEquipe: string,
     ) {
         this.nome = nome;
         this.descricao = descricao;
-        this.fotoPerfil = fotoPerfil;
-        this.usuarios = usuarios;
-        this.tarefas = tarefas;
+        this.fotoEquipe = fotoEquipe;
     }
-
-    @PrimaryGeneratedColumn()
-    id: number
-
-    @Column()
-    nome: string
-
-    @Column()
-    descricao: string
-
-    @Column()
-    fotoPerfil: string
-
-    @ManyToMany(() => UsuarioEntity, usuario => usuario.equipes)
-    usuarios: Array<UsuarioEntity>
-
-    @OneToMany(() => TarefaEntity, tarefa => tarefa.equipe)
-    tarefas: Array<TarefaEntity>
 }

@@ -1,10 +1,9 @@
-import { IsArray, IsNotEmpty, IsString } from "class-validator"
-import { TarefaDto } from "src/tarefa/dto/tarefa.dto"
-import { UsuarioDto } from "src/usuario/dto/usuario.dto"
+import { IsNotEmpty, IsNumber, IsString } from "class-validator"
 
 export class EquipeDto{
 
-    id: number;
+    @IsNumber()
+    idE: number;
     
     @IsString()
     @IsNotEmpty()
@@ -16,29 +15,17 @@ export class EquipeDto{
 
     @IsString()
     @IsNotEmpty()
-    fotoPerfil: string
-
-    @IsArray()
-    @IsNotEmpty()
-    usuarios: Array<UsuarioDto>
-
-    @IsArray()
-    @IsNotEmpty()
-    tarefas: Array<TarefaDto>;
+    fotoEquipe: string
 
     constructor(
-        id: number,
+        idE: number,
         nome: string, 
         descricao: string, 
-        fotoPerfil: string, 
-        usuarios: Array<UsuarioDto>,
-        tarefas: Array<TarefaDto>
+        fotoEquipe: string, 
     ) {
-        this.id = id,
+        this.idE = idE,
         this.nome = nome;
         this.descricao = descricao;
-        this.fotoPerfil = fotoPerfil;
-        this.usuarios = usuarios;
-        this.tarefas = tarefas;
+        this.fotoEquipe = fotoEquipe;
     }
 }

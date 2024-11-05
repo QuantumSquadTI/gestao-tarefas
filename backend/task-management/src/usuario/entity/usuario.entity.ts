@@ -1,52 +1,36 @@
-import { EquipeEntity } from "src/equipe/entity/equipe.entity";
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { PapelEntity } from "./papel.entity";
-import { TarefaEntity } from "src/tarefa/entity/tarefa.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { UsuarioEquipeEntity } from "src/usuario_equipe/entity/usu.eq.entity";
 
-@Entity()
+@Entity('usuario')
 export class UsuarioEntity{
+    
+    @PrimaryGeneratedColumn('uuid')
+    idU: number;
+
+    @Column({type: 'varchar', length: 50})
+    nome: string;
+
+    @Column({type: 'varchar', length: 50})
+    email: string;
+
+    @Column({type: 'varchar', length: 255})
+    senha: string;
+
+    @Column({type: 'boolean'})
+    ativo: boolean;
+
+    @OneToMany(() => UsuarioEquipeEntity, usuarioEquipe => usuarioEquipe.usuario)
+    usuarioEquipes: UsuarioEquipeEntity[];
 
     constructor(
         nome: string,
         email: string,
         senha: string,
-        papel?: PapelEntity,
-        equipes?: Array<EquipeEntity>,
-        tarefas?: Array<TarefaEntity>,
-        ativo?: boolean 
+        ativo?: boolean
     ) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.papel = papel;
-        this.equipes = equipes || [];
-        this.tarefas = tarefas || [];
         this.ativo = ativo;
     }
-    
-    @PrimaryGeneratedColumn()
-    idUser: number;
-
-    @Column()
-    nome: string;
-
-    @Column()
-    email: string;
-
-    @Column()
-    senha: string;
-
-    @ManyToOne(() => PapelEntity, papeis => papeis.usuario)
-    papel: PapelEntity;
-
-    @ManyToMany(() => EquipeEntity, equipes => equipes.usuarios)
-    @JoinTable()
-    equipes: Array<EquipeEntity>;
-
-    @ManyToMany(() => TarefaEntity, tarefas => tarefas.usuario)
-    @JoinTable()
-    tarefas: Array<TarefaEntity>;
-
-    @Column()
-    ativo: boolean;
 }
