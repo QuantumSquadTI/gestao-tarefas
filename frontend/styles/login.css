@@ -235,6 +235,39 @@ button {
   width: 100%;
 }
 
+.btn-logout {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: #dc6666;
+  background: linear-gradient(0deg, #dc6666 0%, #b70b0b 100%);
+  color: white;
+  font-size: 1.6rem;
+}
+
+.btn-logout::before, .btn-logout::after{
+  position: absolute;
+  content: "";
+  right: 0;
+  top: 0;
+  background: rgb(251, 10, 2);
+  transition: all 0.3s ease;
+}
+
+.btn-logout span:hover{
+   color: rgb(251, 10, 2);
+}
+
+.btn span:before,
+.btn span:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: 0;
+   background: rgb(251, 23, 2);
+  transition: all 0.3s ease;
+}
+
 @keyframes ring {
   0% {
     width: 30px;
