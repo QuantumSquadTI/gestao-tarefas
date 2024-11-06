@@ -16,6 +16,7 @@ body {
 }
 
 h1{
+  color: #082a44;
   font-size: 3rem;
   text-align: center;
   margin-bottom: 2rem;
@@ -47,6 +48,7 @@ a:hover{
 }
 
 .card{
+  background-color: white;
   padding: 3rem;
   border-radius: 5%;
   box-shadow: 0.4rem 0.4rem 0.1rem 0rem #00000060;
