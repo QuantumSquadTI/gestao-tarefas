@@ -116,7 +116,7 @@ a:hover{
   
 .fa-eye-slash {
   position: absolute;
-  top: 50%;
+  top: 7%;
   right: 1rem; 
   transform: translateY(-50%);
   cursor: pointer;
