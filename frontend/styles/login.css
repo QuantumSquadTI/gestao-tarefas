@@ -29,7 +29,7 @@ p{
 }
 
 a{
-  color: #90c4d9;
+  color: #1807b6;
   font-size: 1.6rem;
   font-weight: 60rem;
   text-decoration: none;
@@ -37,7 +37,7 @@ a{
 }
 
 a:hover{
-  color: #003a90;
+  color: #71a6f6;
 }
 
 .container{
@@ -68,7 +68,7 @@ a:hover{
   padding: 0.5rem 0.5rem;
   display: inline-block;
   border: 0;
-  border-bottom: 0.2rem solid #0d009c;
+  border-bottom: 0.2rem solid #1a145a;
   background-color: transparent;
   outline: none;
   min-width: 18rem;
@@ -85,7 +85,7 @@ a:hover{
   top: 1.1rem;
   left: 0;
   pointer-events: none;
-  color: #427D9C;
+  color: #4b61d4;
   transition: all .3s ease-out;
 }
 
@@ -105,12 +105,30 @@ a:hover{
   color: #4038a0
 }
 
+.fa-eye {
+  position: absolute;
+  top: 50%;
+  right: 1rem; 
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #023991;
+  }
+  
+.fa-eye-slash {
+  position: absolute;
+  top: 50%;
+  right: 1rem; 
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #aaa;
+}
 
 .frame {
   width: 90%;
   margin: 4rem auto;
   text-align: center;
 }
+
 button {
   margin: 1rem;
 }
