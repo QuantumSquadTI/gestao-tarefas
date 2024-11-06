@@ -152,10 +152,10 @@ button {
   outline: none;
 }
 
-
+/* BOTAO LOGIN */
 .btn {
-  background: #66C4DC;
-  background: linear-gradient(0deg, #66c4dc 0%, #0b6db7 100%);
+  background: #88dc66;
+  background: linear-gradient(0deg, #66dc7c 0%, #0bb70e 100%);
   width: 200px;
   height: 7rem;
   line-height: 7rem;
@@ -176,7 +176,7 @@ button {
   content: "";
   right: 0;
   top: 0;
-   background: rgba(2,126,251,1);
+   background: rgb(68, 251, 2);
   transition: all 0.3s ease;
 }
 
@@ -204,7 +204,7 @@ button {
 }
 
 .btn span:hover{
-   color: rgba(2,126,251,1);
+   color: rgb(48, 251, 2);
 }
 
 .btn span:before,
@@ -213,7 +213,7 @@ button {
   content: "";
   left: 0;
   bottom: 0;
-   background: rgba(2,126,251,1);
+   background: rgb(35, 251, 2);
   transition: all 0.3s ease;
 }
 
@@ -235,6 +235,7 @@ button {
   width: 100%;
 }
 
+/* BOTAO LOGOUT */
 .btn-logout {
   position: absolute;
   top: 2rem;
@@ -258,8 +259,8 @@ button {
    color: rgb(251, 10, 2);
 }
 
-.btn span:before,
-.btn span:after {
+.btn-logout span:before,
+.btn-logout span:after {
   position: absolute;
   content: "";
   left: 0;
