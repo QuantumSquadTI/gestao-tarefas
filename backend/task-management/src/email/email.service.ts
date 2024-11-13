@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { google } from 'googleapis';
 import * as nodemailer from 'nodemailer';
 
-//Autenticação necessária para nós entrarmos na conta gmail
 const OAuth2 = google.auth.OAuth2;
 const oauth2Client = new OAuth2(
     
@@ -30,7 +29,7 @@ export class EmailService {
                 text: `Olá,
     
                 Clique no link para confirmar seu cadastro:
-                http://localhost:3000/confirmar-cadastro?token=${token}
+                http://localhost:3000/usuario/confirmar-cadastro?token=${token}
                 
                 Atenciosamente,
                 Equipe Quantum Squad`,

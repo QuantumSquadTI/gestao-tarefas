@@ -6,6 +6,7 @@ import { UsuarioMapper } from "./usuario.mapper";
 import { EmailService } from "src/email/email.service";
 import * as jwt from 'jsonwebtoken';
 import { UsuarioEntity } from "./entity/usuario.entity";
+import { log } from "console";
 
 @Injectable()
 export class UsuarioService{
@@ -62,33 +63,26 @@ export class UsuarioService{
         return UsuarioMapper.entityToDomain(user);
     }
 
-    private gerarToken(email: string): string{
-        const payload = { email };
-        const segredo = 'G7@!pX8$uM^3kN2&rL6*qV1#tFzJ9zA';
-        const opcoes = { expiresIn: '1h' }
-    
-        return jwt.sign(payload, segredo, opcoes)
-    }
-
     async confirmarCadastro(token: string) {
         try {
             // ---- Atributos
+            
+            
             const segredo = 'G7@!pX8$uM^3kN2&rL6*qV1#tFzJ9zA';
             const payload = jwt.verify(token, segredo) as { email:string };
+            console.log(payload);
+            
             
             // ---- Buscando Usuario
-            const usuario = UsuarioMapper.entityToDomain(await this.usuarioRepository.findOne({ where: { email: payload.email } }));
+            const usuario: Usuario = await this.buscarPorEmail(payload.email);
 
-            // ---- Se não encontrar / Se já estiver ativo
-            if(!usuario){
-                throw new HttpException("Usuário não encontrado", HttpStatus.NOT_FOUND);
-            }
+            // ---- Se já estiver ativo
             if (usuario.isAtivo) {
                 throw new HttpException('Usuário já confirmado', HttpStatus.BAD_REQUEST);
             }
 
             // ---- Torná-lo ativo e salvá-lo
-            usuario.isAtivo;
+            usuario.setAtivo(true);
             await this.usuarioRepository.save(UsuarioMapper.domainToEntity(usuario));
 
 
@@ -104,5 +98,13 @@ export class UsuarioService{
 
     async deletarUsuario(idU: number){
         await this.usuarioRepository.delete(idU);
+    }
+
+    private gerarToken(email: string): string{
+        const payload = { email };
+        const segredo = 'G7@!pX8$uM^3kN2&rL6*qV1#tFzJ9zA';
+        const opcoes = { expiresIn: '1h' }
+    
+        return jwt.sign(payload, segredo, opcoes)
     }
 }

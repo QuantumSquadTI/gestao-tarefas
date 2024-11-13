@@ -30,6 +30,15 @@ export class UsuarioController{
         }
     }
 
+    @Get('confirmar-cadastro')
+    async confirmarCadastro(@Query('token') token: string){
+        if (!token){
+            throw new HttpException("Token não encontrado", HttpStatus.BAD_REQUEST)
+        }
+        
+        return await this.usuarioService.confirmarCadastro(token)
+    }
+
     @Get(':email')
     async buscarPorEmail(@Param('email') email: string){
         const usuario: UsuarioDto = UsuarioMapper.domainToDto(
@@ -41,15 +50,6 @@ export class UsuarioController{
             message: "Usuário encontrado com sucesso",
             data: usuario
         }
-    }
-
-    @Get('confirmar-cadastro')
-    async confirmarCadastro(@Query('token') token: string){
-        if (!token){
-            throw new HttpException("Token não encontrado", HttpStatus.BAD_REQUEST)
-        }
-
-        return await this.usuarioService.confirmarCadastro(token)
     }
 
     @Delete(':id')
