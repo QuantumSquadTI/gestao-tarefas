@@ -4,7 +4,7 @@ import { UsuarioEquipeEntity } from "src/usuario_equipe/entity/usu.eq.entity";
 @Entity('usuario')
 export class UsuarioEntity{
     
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn()
     idU: number;
 
     @Column({type: 'varchar', length: 50})
@@ -16,7 +16,7 @@ export class UsuarioEntity{
     @Column({type: 'varchar', length: 255})
     senha: string;
 
-    @Column({type: 'boolean'})
+    @Column({type: 'boolean', default: false})
     ativo: boolean;
 
     @OneToMany(() => UsuarioEquipeEntity, usuarioEquipe => usuarioEquipe.usuario)

@@ -19,6 +19,7 @@ export class UsuarioService{
     async cadastrar(novoUsuario: Usuario): Promise <Usuario>{
         // ---- Atributos
         const email = novoUsuario.getEmail;
+        console.log(email)
         const senha = novoUsuario.getSenha;
 
         // ---- Lógica de ver se ja tem alguem registrado com o email
