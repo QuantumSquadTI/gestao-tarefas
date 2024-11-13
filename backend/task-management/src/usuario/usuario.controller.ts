@@ -31,7 +31,17 @@ export class UsuarioController{
     }
 
     @Get(':email')
-    async buscarPorEmail()
+    async buscarPorEmail(@Param('email') email: string){
+        const usuario: UsuarioDto = UsuarioMapper.domainToDto(
+            await this.usuarioService.buscarPorEmail(email)
+        );
+
+        return {
+            statusCode: HttpStatus.OK,
+            message: "Usuário encontrado com sucesso",
+            data: usuario
+        }
+    }
 
     @Get('confirmar-cadastro')
     async confirmarCadastro(@Query('token') token: string){
@@ -43,5 +53,12 @@ export class UsuarioController{
     }
 
     @Delete(':id')
-    async deletarUsuario(@Param() )
+    async deletarUsuario(@Param('id') id: number) {
+        this.usuarioService.deletarUsuario(id);
+
+        return {
+            statusCode: HttpStatus.OK,
+            message: "Usuário deletado com sucesso."
+        }
+    }
 }

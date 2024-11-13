@@ -46,8 +46,16 @@ export class UsuarioService{
         )
     }
 
-    async searchByEmail(email: string): Promise<Usuario> {
+    async buscarPorEmail(email: string): Promise<Usuario> {
         const user = await this.usuarioRepository.findOne({where: { email }});
+        if (!user) {
+            throw new HttpException("Usuário não encontrado" ,HttpStatus.NOT_FOUND);
+        }
+        return UsuarioMapper.entityToDomain(user);
+    }
+
+    async buscarPorId(idU: number): Promise<Usuario> {
+        const user = await this.usuarioRepository.findOne({where: { idU }});
         if (!user) {
             throw new HttpException("Usuário não encontrado" ,HttpStatus.NOT_FOUND);
         }
@@ -92,5 +100,9 @@ export class UsuarioService{
         } catch (error) {
             throw new HttpException('Erro ao confirmar cadastro', HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    async deletarUsuario(idU: number){
+        await this.usuarioRepository.delete(idU);
     }
 }
