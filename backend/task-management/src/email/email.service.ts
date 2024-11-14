@@ -2,11 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { google } from 'googleapis';
 import * as nodemailer from 'nodemailer';
 
-const OAuth2 = google.auth.OAuth2;
-const oauth2Client = new OAuth2(
-    
-)
-
 @Injectable()
 export class EmailService {
     
@@ -26,7 +21,8 @@ export class EmailService {
                 from: "Quantum Squad quantumsquadti@gmail.com",
                 to: para,
                 subject: "Confirme seu cadastro",
-                text: `Olá,
+                text: `
+                Olá,
     
                 Clique no link para confirmar seu cadastro:
                 http://localhost:3000/usuario/confirmar-cadastro?token=${token}

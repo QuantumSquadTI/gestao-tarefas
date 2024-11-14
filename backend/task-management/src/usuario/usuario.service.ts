@@ -81,14 +81,15 @@ export class UsuarioService{
                 throw new HttpException('Usuário já confirmado', HttpStatus.BAD_REQUEST);
             }
 
-            // ---- Torná-lo ativo e salvá-lo
-            usuario.setAtivo(true);
-            await this.usuarioRepository.save(UsuarioMapper.domainToEntity(usuario));
+            // ---- Torná-lo ativo
+            await this.usuarioRepository.update({email: payload.email}, {ativo: true});
+            const usuarioAtualizado: Usuario = await this.buscarPorEmail(payload.email);
 
 
             return {
-                message:"Confirmação de cadastro bem sucedida!", 
-                statusCode: HttpStatus.OK
+                message:"Confirmação de cadastro bem sucedida!",
+                statusCode: HttpStatus.OK,
+                data: usuarioAtualizado,
             }
             
         } catch (error) {
