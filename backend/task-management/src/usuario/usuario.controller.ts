@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Res, HttpStatus, Response, HttpCode, HttpException, Query } from "@nestjs/common";
+import { Body, Controller, Get, Post, Res, HttpStatus, Response, HttpCode, HttpException, Query, Delete, Param } from "@nestjs/common";
 import { UsuarioService } from "./usuario.service";
 import { UsuarioDto } from "./dto/usuario.dto";
 import { UsuarioMapper } from "./usuario.mapper";
@@ -19,13 +19,10 @@ export class UsuarioController{
                 await this.usuarioService.cadastrar(UsuarioMapper.dtoToDomain(novoUsuario))
             )
 
-            const location = `/usuario/cadastrar/${usuarioRegistrado.idU}`;
-
             return {
                 statusCode: HttpStatus.CREATED,
                 message: "Usuário cadastrado com sucesso",
                 data: usuarioRegistrado,
-                location
             };
         }catch(error){
             console.error("Erro ao cadastrar usuário:", error);
@@ -38,7 +35,30 @@ export class UsuarioController{
         if (!token){
             throw new HttpException("Token não encontrado", HttpStatus.BAD_REQUEST)
         }
-
+        
         return await this.usuarioService.confirmarCadastro(token)
+    }
+
+    @Get(':email')
+    async buscarPorEmail(@Param('email') email: string){
+        const usuario: UsuarioDto = UsuarioMapper.domainToDto(
+            await this.usuarioService.buscarPorEmail(email)
+        );
+
+        return {
+            statusCode: HttpStatus.OK,
+            message: "Usuário encontrado com sucesso",
+            data: usuario
+        }
+    }
+
+    @Delete(':id')
+    async deletarUsuario(@Param('id') id: number) {
+        this.usuarioService.deletarUsuario(id);
+
+        return {
+            statusCode: HttpStatus.OK,
+            message: "Usuário deletado com sucesso."
+        }
     }
 }

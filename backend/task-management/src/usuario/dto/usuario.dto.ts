@@ -27,7 +27,7 @@ export class UsuarioDto{
         nome: string,
         email: string,
         senha: string,
-        ativo?: boolean,
+        ativo: boolean = false,
     ) {
         this.idU = idU;
         this.nome = nome;
