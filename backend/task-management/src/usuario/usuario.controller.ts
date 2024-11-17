@@ -30,6 +30,51 @@ export class UsuarioController{
         }
     }
 
+
+// LOGIN
+    @Post("login")
+    @HttpCode(HttpStatus.OK) 
+    async login(@Body() logiUsuarioDto: { email: string; senha: string }) {
+        try {
+            // Chama o serviço de login e obtém o token JWT
+            const token = await this.usuarioService.login(logiUsuarioDto.email, logiUsuarioDto.senha);
+    
+            // Retorna a resposta de sucesso com o token
+            return {
+                statusCode: HttpStatus.OK,
+                message: "Login realizado com sucesso",
+                data: { token },
+            };
+        } catch (error) {
+            console.error("Erro ao realizar login:", error);
+    
+            // Lança o erro, que será tratado pelo NestJS
+            throw new HttpException(
+                error.message || "Erro ao realizar login",
+                error.status || HttpStatus.INTERNAL_SERVER_ERROR,
+            );
+        }
+    }
+
+    //LOGOUT
+    @Post("logout")
+    @HttpCode(HttpStatus.OK)
+    async logout(@Body() body: { token: string }) {
+        try {
+            await this.usuarioService.invalidarToken(body.token);
+            return {
+                statusCode: HttpStatus.OK,
+                message: "Logout realizado com sucesso",
+            };
+        } catch (error) {
+            console.error("Erro ao realizar logout:", error);
+            throw new HttpException(
+                "Erro ao realizar logout",
+                HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
     @Get('confirmar-cadastro')
     async confirmarCadastro(@Query('token') token: string){
         if (!token){

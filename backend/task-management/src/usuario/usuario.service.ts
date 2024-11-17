@@ -17,6 +17,7 @@ export class UsuarioService{
         private readonly emailService: EmailService
     ){}
 
+        // ---- CADASTRAR
     async cadastrar(novoUsuario: Usuario): Promise <Usuario>{
         // ---- Atributos
         const email = novoUsuario.getEmail;
@@ -46,6 +47,44 @@ export class UsuarioService{
             await this.usuarioRepository.save(UsuarioMapper.domainToEntity(novoUsuario))
         )
     }
+
+        // ---- LOGIN
+    async login(email: string, senha: string): Promise<string> {
+        // ---- Verifica se o email existe no sistema
+        const usuario = await this.usuarioRepository.findOne({ where: { email } });
+    
+        if (!usuario) {
+            throw new HttpException("Usuário não encontrado", HttpStatus.NOT_FOUND);
+        }
+    
+        // ---- Valida a senha
+        const usuarioDomain = UsuarioMapper.entityToDomain(usuario);
+        const senhaValida = usuarioDomain.validarSenha(senha);
+    
+        if (!senhaValida) {
+            throw new HttpException("Senha incorreta", HttpStatus.UNAUTHORIZED);
+        }
+    
+        // ---- Gera um token JWT para autenticação
+        const token = this.gerarToken(email);
+    
+        // ---- Retorna o token (ou outras informações se necessário)
+        return token;
+    }
+
+//----LOGOUT
+        private tokensInvalidos: Set<string> = new Set(); // Armazena tokens inválidos
+
+// Função para invalidar o token
+    async invalidarToken(token: string): Promise<void> {
+            this.tokensInvalidos.add(token);
+        }
+
+// Função para verificar se o token é inválido
+        isTokenInvalido(token: string): boolean {
+            return this.tokensInvalidos.has(token); 
+        }
+
 
     async buscarPorEmail(email: string): Promise<Usuario> {
         const user = await this.usuarioRepository.findOne({where: { email }});
@@ -100,6 +139,7 @@ export class UsuarioService{
     async deletarUsuario(idU: number){
         await this.usuarioRepository.delete(idU);
     }
+
 
     private gerarToken(email: string): string{
         const payload = { email };
