@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Res, HttpStatus, Response, HttpCode, HttpE
 import { UsuarioService } from "./usuario.service";
 import { UsuarioDto } from "./dto/usuario.dto";
 import { UsuarioMapper } from "./usuario.mapper";
+import { LoginUsuarioDto } from "./dto/loginUsuario.dto";
 
 @Controller("usuario")
 export class UsuarioController{
@@ -27,6 +28,42 @@ export class UsuarioController{
         }catch(error){
             console.error("Erro ao cadastrar usuário:", error);
             throw new HttpException("Erro ao cadastrar usuário", HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
+
+    @Post("login")
+    @HttpCode(HttpStatus.OK) 
+    async login(@Body() loginUsuarioDto: LoginUsuarioDto) {
+        try {
+            const token = await this.usuarioService.login(loginUsuarioDto.email, loginUsuarioDto.senha);
+    
+            return {
+                statusCode: HttpStatus.OK,
+                message: "Login realizado com sucesso",
+                data: token
+            };
+        } catch (error) {
+            console.error("Erro ao realizar login:", error);
+
+            throw new HttpException("Erro ao realizar login", HttpStatus.INTERNAL_SERVER_ERROR,);
+        }
+    }
+
+    @Post("logout")
+    @HttpCode(HttpStatus.OK)
+    async logout(@Body() token: string) {
+        try {
+            await this.usuarioService.invalidarToken(token);
+            return {
+                statusCode: HttpStatus.OK,
+                message: "Logout realizado com sucesso",
+            };
+        } catch (error) {
+            console.error("Erro ao realizar logout:", error);
+            throw new HttpException(
+                "Erro ao realizar logout",
+                HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
     }
 
