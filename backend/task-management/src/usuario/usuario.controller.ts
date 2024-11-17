@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Res, HttpStatus, Response, HttpCode, HttpE
 import { UsuarioService } from "./usuario.service";
 import { UsuarioDto } from "./dto/usuario.dto";
 import { UsuarioMapper } from "./usuario.mapper";
+import { LoginUsuarioDto } from "./dto/loginUsuario.dto";
 
 @Controller("usuario")
 export class UsuarioController{
@@ -30,38 +31,29 @@ export class UsuarioController{
         }
     }
 
-
-// LOGIN
     @Post("login")
     @HttpCode(HttpStatus.OK) 
-    async login(@Body() logiUsuarioDto: { email: string; senha: string }) {
+    async login(@Body() loginUsuarioDto: LoginUsuarioDto) {
         try {
-            // Chama o serviço de login e obtém o token JWT
-            const token = await this.usuarioService.login(logiUsuarioDto.email, logiUsuarioDto.senha);
+            const token = await this.usuarioService.login(loginUsuarioDto.email, loginUsuarioDto.senha);
     
-            // Retorna a resposta de sucesso com o token
             return {
                 statusCode: HttpStatus.OK,
                 message: "Login realizado com sucesso",
-                data: { token },
+                data: token
             };
         } catch (error) {
             console.error("Erro ao realizar login:", error);
-    
-            // Lança o erro, que será tratado pelo NestJS
-            throw new HttpException(
-                error.message || "Erro ao realizar login",
-                error.status || HttpStatus.INTERNAL_SERVER_ERROR,
-            );
+
+            throw new HttpException("Erro ao realizar login", HttpStatus.INTERNAL_SERVER_ERROR,);
         }
     }
 
-    //LOGOUT
     @Post("logout")
     @HttpCode(HttpStatus.OK)
-    async logout(@Body() body: { token: string }) {
+    async logout(@Body() token: string) {
         try {
-            await this.usuarioService.invalidarToken(body.token);
+            await this.usuarioService.invalidarToken(token);
             return {
                 statusCode: HttpStatus.OK,
                 message: "Logout realizado com sucesso",
