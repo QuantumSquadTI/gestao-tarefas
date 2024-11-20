@@ -18,6 +18,13 @@ export class EquipeService {
         private readonly usuarioService: UsuarioService
     ){}
 
+    async isAdmistrador(idU: number){
+        const membroVelho = await this.usuEquRepository.findOne({where: { idU }})
+        if((await membroVelho).funcao !== Funcao.ADMINISTRADOR){
+            throw new HttpException("Membro não é Administrador", HttpStatus.BAD_REQUEST)
+        }
+    }
+
     async criarEquipe(idU: number ,  equipe: Equipe ){
         this.usuarioService.buscarPorId(idU);
         const [admins, count] = await this.usuEquRepository.findAndCount({where: {idU, funcao: Funcao.ADMINISTRADOR} });
@@ -36,13 +43,23 @@ export class EquipeService {
     }
 
     async adicionarMembro(idE: number, idU: number, idMembroNovo: number){
-        const membroVelho = await this.usuEquRepository.findOne({where: { idU }})
-        if((await membroVelho).funcao !== Funcao.ADMINISTRADOR){
-            throw new HttpException("Membro não é Administrador", HttpStatus.BAD_REQUEST)
-        }
-
+        this.usuarioService.buscarPorId(idU)
+        this.isAdmistrador(idU)
+        
         const novoMembro = new UsuarioEquipeEntity(idMembroNovo, idE, Funcao.COLABORADOR)
 
         return await this.usuEquRepository.save(novoMembro)
+    }
+
+    async mudarFuncao(idE, dadosAlterados: {idU, idAlterado, funcao}){
+        this.usuarioService.buscarPorId(dadosAlterados.idU)
+        this.isAdmistrador(dadosAlterados.idU)
+
+        
+        this.usuEquRepository.update({idU: dadosAlterados.idU, idE: idE}, {funcao: dadosAlterados.funcao})
+    }
+
+    async removerFuncao(){
+
     }
 }
