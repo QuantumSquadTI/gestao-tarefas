@@ -35,10 +35,10 @@ export class EquipeMapper{
     static domainToDto(domain: Equipe): EquipeDto{
 
         return new EquipeDto(
-            domain.getId,
             domain.getNome,
             domain.getDescricao,
             domain.getFotoEquipe,
+            domain.getId,
         );
     }
 }

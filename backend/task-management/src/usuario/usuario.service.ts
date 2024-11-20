@@ -6,7 +6,6 @@ import { UsuarioMapper } from "./usuario.mapper";
 import { EmailService } from "src/email/email.service";
 import * as jwt from 'jsonwebtoken';
 import { UsuarioEntity } from "./entity/usuario.entity";
-import { log } from "console";
 
 @Injectable()
 export class UsuarioService{
@@ -17,71 +16,57 @@ export class UsuarioService{
         private readonly emailService: EmailService
     ){}
 
-    // ---- CADASTRAR
     async cadastrar(novoUsuario: Usuario): Promise <Usuario>{
-        // ---- Atributos
+        
         const email = novoUsuario.getEmail;
         console.log(email)
         const senha = novoUsuario.getSenha;
 
-        // ---- Lógica de ver se ja tem alguem registrado com o email
         const resultado: (UsuarioEntity | undefined) = await this.usuarioRepository.findOne({where: { email }})
 
         if (resultado){
             throw new HttpException("Usuario já cadastrado", HttpStatus.CONFLICT);
         }
 
-        // ---- Lógica de validar senha
         const senhaCerta :boolean = novoUsuario.validarSenha(senha);
 
         if (!senhaCerta) {
             throw new HttpException("Senha inválida", HttpStatus.BAD_REQUEST);
         }
 
-        // ---- Enviar um email de confirmação
         const token = this.gerarToken(email)
         await this.emailService.emailConfirmarCadastro(email, token);
 
-        // ---- Salva Usuario no sistema
         return UsuarioMapper.entityToDomain(
             await this.usuarioRepository.save(UsuarioMapper.domainToEntity(novoUsuario))
         )
     }
 
-    // ---- LOGIN
     async login(email: string, senha: string): Promise<string> {
-        // ---- Verifica se o email existe no sistema
-        const usuario = await this.usuarioRepository.findOne({ where: { email } });
-    
-        if (!usuario) {
-            throw new HttpException("Usuário não encontrado", HttpStatus.NOT_FOUND);
+        const usuario = this.buscarPorEmail(email)
+
+        if (!(await usuario).isAtivo){
+            throw new HttpException("Usuário não está confirmado", HttpStatus.UNAUTHORIZED);
         }
-    
-        // ---- Valida a senha
-        if (usuario.senha !== senha){
+
+        if ((await usuario).getSenha !== senha){
             throw new HttpException("Senha errada", HttpStatus.UNAUTHORIZED);
         }
     
-        // ---- Gera um token JWT para autenticação
         const token = this.gerarToken(email);
     
-        // ---- Retorna o token (ou outras informações se necessário)
         return token;
     }
 
-     //----LOGOUT
-    private tokensInvalidos: Set<string> = new Set(); // Armazena tokens inválidos
+    private tokensInvalidos: Set<string> = new Set();
 
-    // Função para invalidar o token
     async invalidarToken(token: string): Promise<void> {
         this.tokensInvalidos.add(token);
     }
 
-    // Função para verificar se o token é inválido
     isTokenInvalido(token: string): boolean {
         return this.tokensInvalidos.has(token); 
     }
-
 
     async buscarPorEmail(email: string): Promise<Usuario> {
         const user = await this.usuarioRepository.findOne({where: { email }});
@@ -100,27 +85,20 @@ export class UsuarioService{
     }
 
     async confirmarCadastro(token: string) {
-        try {
-            // ---- Atributos
-            
+        try {       
             
             const segredo = 'G7@!pX8$uM^3kN2&rL6*qV1#tFzJ9zA';
             const payload = jwt.verify(token, segredo) as { email:string };
             console.log(payload);
-            
-            
-            // ---- Buscando Usuario
+               
             const usuario: Usuario = await this.buscarPorEmail(payload.email);
 
-            // ---- Se já estiver ativo
             if (usuario.isAtivo) {
                 throw new HttpException('Usuário já confirmado', HttpStatus.BAD_REQUEST);
             }
 
-            // ---- Torná-lo ativo
             await this.usuarioRepository.update({email: payload.email}, {ativo: true});
             const usuarioAtualizado: Usuario = await this.buscarPorEmail(payload.email);
-
 
             return {
                 message:"Confirmação de cadastro bem sucedida!",

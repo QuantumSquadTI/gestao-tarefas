@@ -2,7 +2,7 @@ import { EquipeEntity } from "src/equipe/entity/equipe.entity";
 import { UsuarioEntity } from "src/usuario/entity/usuario.entity";
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryColumn } from "typeorm";
 
-enum Funcao{
+export enum Funcao{
     ADMINISTRADOR = 'Administrador',
     COLABORADOR = 'Colaborador',
 }
@@ -32,6 +32,12 @@ export class UsuarioEquipeEntity{
     equipe: EquipeEntity;
 
     constructor(
-        
-    ){}
+        idU: number,
+        idE: number,
+        funcao: Funcao
+    ){
+        this.idU = idU,
+        this.idE = idE,
+        this.funcao = funcao
+    }
 }

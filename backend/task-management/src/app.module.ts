@@ -18,7 +18,7 @@ import { EquipeModule } from './equipe/equipe.module';
       password: "quantum",
       database: "kanban",
       entities: [UsuarioEntity, EquipeEntity, UsuarioEquipeEntity],
-      synchronize: false,
+      synchronize: true,
     }),
     UsuarioModule,
     EquipeModule

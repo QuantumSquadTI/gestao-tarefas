@@ -4,7 +4,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 @Entity('equipe')
 export class EquipeEntity{
 
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn()
     idE: number;
 
     @Column({type: 'varchar', length: 50})

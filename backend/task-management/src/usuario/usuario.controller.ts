@@ -67,6 +67,8 @@ export class UsuarioController{
         }
     }
 
+    
+
     @Get('confirmar-cadastro')
     async confirmarCadastro(@Query('token') token: string){
         if (!token){
@@ -98,4 +100,5 @@ export class UsuarioController{
             message: "Usuário deletado com sucesso."
         }
     }
+
 }
