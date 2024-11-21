@@ -13,15 +13,19 @@ export class EquipeController {
     @Post(":id")
     async criarEquipe(@Body() equipe: EquipeDto, @Param("id") idU: number, @Req() req: Request){
         //const idU = req.user.idU;
-        const equipeCriada = await this.equipeService.criarEquipe(
-            idU, EquipeMapper.dtoToDomain(equipe)
-        )
 
-        return {
-            statusCode: HttpStatus.CREATED,
-            message: "Equipe criada com sucesso",
-            data: equipeCriada,
-        };
+        console.log(equipe, idU);
+        
+
+        // const equipeCriada = await this.equipeService.criarEquipe(
+        //     idU, EquipeMapper.dtoToDomain(equipe)
+        // )
+
+        // return {
+        //     statusCode: HttpStatus.CREATED,
+        //     message: "Equipe criada com sucesso",
+        //     data: equipeCriada,
+        // };
     }
 
     @Post("add/:idE")
