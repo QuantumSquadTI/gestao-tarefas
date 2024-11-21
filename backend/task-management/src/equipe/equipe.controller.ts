@@ -39,6 +39,7 @@ export class EquipeController {
     
     @Put("update/:idE")
     async mudarFuncao(@Param("idE") idE: number, @Body() dados: {idU, idAlterado, funcao}, @Req() req: Request){
+        //const idU = req.user.idU;
         const membroAlterado = await this.equipeService.mudarFuncao(idE, dados)
 
         return {
@@ -49,8 +50,9 @@ export class EquipeController {
     }
 
     @Delete("remove/:idE")
-    async removerMembro(){
-
+    async removerMembro(@Param("idE") idE: number, @Body() dados: {idU, idAlterado}, @Req() req: Request){
+        //const idU = req.user.idU;
+        this.equipeService.removerMembro(idE, dados)
     }
 
 }

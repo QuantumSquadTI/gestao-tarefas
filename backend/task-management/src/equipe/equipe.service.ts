@@ -53,13 +53,18 @@ export class EquipeService {
 
     async mudarFuncao(idE, dadosAlterados: {idU, idAlterado, funcao}){
         this.usuarioService.buscarPorId(dadosAlterados.idU)
+        this.usuarioService.buscarPorId(dadosAlterados.idAlterado)
         this.isAdmistrador(dadosAlterados.idU)
 
-        
-        this.usuEquRepository.update({idU: dadosAlterados.idU, idE: idE}, {funcao: dadosAlterados.funcao})
+
+        return this.usuEquRepository.update({idU: dadosAlterados.idAlterado, idE: idE}, {funcao: dadosAlterados.funcao})
     }
 
-    async removerFuncao(){
+    async removerMembro(idE, dadosRemover){
+        this.usuarioService.buscarPorId(dadosRemover.idU)
+        this.usuarioService.buscarPorId(dadosRemover.idAlterado)
+        this.isAdmistrador(dadosRemover.idU)
 
+        this.usuEquRepository.delete({idE: idE, idU: dadosRemover.idAlterado})
     }
 }
