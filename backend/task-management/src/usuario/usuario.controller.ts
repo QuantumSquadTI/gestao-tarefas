@@ -100,5 +100,8 @@ export class UsuarioController{
             message: "Usuário deletado com sucesso."
         }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> bca87ce48669797038284a8edc0f1a830ff2dd6a
 }
