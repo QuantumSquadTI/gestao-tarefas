@@ -1,4 +1,5 @@
 // Variáveis para os elementos
+
 let btn = document.querySelector('#verSenha');
 let btnConfirm = document.querySelector('#verConfirmSenha');
 
@@ -18,6 +19,7 @@ let msgError = document.querySelector('#msgError');
 let msgSuccess = document.querySelector('#msgSuccess');
 
 // Validação do e-mail
+
 email.addEventListener('keyup', () => {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!regexEmail.test(email.value)) {
@@ -34,6 +36,7 @@ email.addEventListener('keyup', () => {
 });
 
 // Validação da senha
+
 senha.addEventListener('keyup', () => {
     if (senha.value.length < 6) {
         labelSenha.setAttribute('style', 'color: red');
@@ -49,6 +52,7 @@ senha.addEventListener('keyup', () => {
 });
 
 // Validação de confirmação da senha
+
 confirmSenha.addEventListener('keyup', () => {
     if (senha.value !== confirmSenha.value) {
         labelConfirmSenha.setAttribute('style', 'color: red');
@@ -64,6 +68,7 @@ confirmSenha.addEventListener('keyup', () => {
 });
 
 // Função para cadastrar
+
 function cadastrar() {
     if (validEmail && validSenha && validConfirmSenha) {
         let listaUser = JSON.parse(localStorage.getItem("listaUser") || "[]");
@@ -90,21 +95,30 @@ function cadastrar() {
     }
 }
 
-// Mostrar/ocultar senha
+// Função para mostrar/ocultar senha
+
 btn.addEventListener('click', () => {
-    let inputSenha = document.querySelector('#senha');
-    if (inputSenha.getAttribute('type') == 'password') {
-        inputSenha.setAttribute('type', 'text');
+    if (senha.type === 'password') {
+        senha.type = 'text';
+        btn.classList.add('fa-eye');
+        btn.classList.remove('fa-eye-slash');
     } else {
-        inputSenha.setAttribute('type', 'password');
+        senha.type = 'password';
+        btn.classList.add('fa-eye-slash');
+        btn.classList.remove('fa-eye');
     }
 });
 
+// Função para mostrar/ocultar confirmação de senha
+
 btnConfirm.addEventListener('click', () => {
-    let inputConfirmSenha = document.querySelector('#confirmSenha');
-    if (inputConfirmSenha.getAttribute('type') == 'password') {
-        inputConfirmSenha.setAttribute('type', 'text');
+    if (confirmSenha.type === 'password') {
+        confirmSenha.type = 'text';
+        btnConfirm.classList.add('fa-eye');
+        btnConfirm.classList.remove('fa-eye-slash');
     } else {
-        inputConfirmSenha.setAttribute('type', 'password');
+        confirmSenha.type = 'password';
+        btnConfirm.classList.add('fa-eye-slash');
+        btnConfirm.classList.remove('fa-eye');
     }
 });
