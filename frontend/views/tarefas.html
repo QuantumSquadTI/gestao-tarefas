@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban Board</title>
+  <link rel="stylesheet" href="../styles/tarefas.css">
+</head>
+<body>
+  <div class="kanban-board">
+    <div class="kanban-column" id="pending">
+      <h3>Pendente</h3>
+      <div class="task-list">
+        <div class="task" data-status="pending">
+          <p>Tarefa 1</p>
+          <div class="task-actions">
+            <button class="move-btn" data-direction="right">→</button>
+          </div>
+        </div>
+        <div class="task" data-status="pending">
+          <p>Tarefa 2</p>
+          <div class="task-actions">
+            <button class="move-btn" data-direction="right">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="kanban-column" id="in-progress">
+      <h3>Em Andamento</h3>
+      <div class="task-list"></div>
+    </div>
+
+    <div class="kanban-column" id="completed">
+      <h3>Concluído</h3>
+      <div class="task-list"></div>
+    </div>
+  </div>
+
+  <script src="../scripts/tarefas.js"></script>
+</body>
+</html>
