@@ -12,7 +12,7 @@
 <body>
     
     <div class='container'>
-        <div class='card'>
+        <form id="formCadastro" class='card' >
 
             <h1>Cadastre-se</h1>
             
@@ -41,18 +41,8 @@
 
             </div>
             
-            <div class="label-float">
-
-                <input type="password" id="confirmSenha" required>
-                <label id="labelConfirmSenha" for="confirmSenha">Confirmar Senha</label>
-                <i id="verConfirmSenha" class="fa fa-eye fa-eye-slash" aria-hidden="true"></i>
-
-            </div>
-            
             <div class='justify-center'>
-
-                <button onclick="cadastrar()">Cadastrar</button>
-
+                <button type="submit">Cadastrar</button>
             </div>
             
             <br>
@@ -61,10 +51,11 @@
                 <a href="../views/login.html">      Login</a>
             </p>
 
-        </div>
+        </form>
     </div>
 
-    <script src="../scripts/cadastro.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/frontend/scripts/cadastro.js"></script>
 
 </body>
 </html>
