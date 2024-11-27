@@ -1,62 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../styles/login.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">  
-  <title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../styles/login.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Login</title>
 </head>
 <body>
-  
+  	<div class="container">
+    	<form class="card" id="formLogin">
+			<h1> Login </h1>
 
-  <div class="container">
-    <div class="card">
+			<div class="label-float" name="email">
 
-      <h1> FAÇA SEU LOGIN </h1>
+				<label id="emailLabel" for="email">E-mail</label>
+				<input type="emailLabel" id="email" placeholder="Seu email cadastrado" required>
 
-      <!-- Campo Usuário -->
-      <div class="label-float">
+			</div>
 
-        <label id="userLabel" for="user">Usuário</label>
-        <input type="text" id="user" placeholder="Seu usuário cadastrado" required>
+			<div class="label-float" name="senha">
 
-      </div>
+				<label id="senhaLabel" for="senha">Senha</label>
+				<input type="password" id="senha" placeholder="Senha do usuário cadastrado" required>
+				<i class="fa fa-eye fa-eye-slash" aria-hidden="true" id="verSenha"></i>
 
-      <!-- Campo E-mail -->
-      <div class="label-float">
+			</div>
 
-        <label id="emailLabel" for="email">E-mail</label>
-        <input type="emailLabel" id="email" placeholder="Seu email cadastrado" required>
+			<div class="justify-center wrap" name="botão">
 
-      </div>
+				<button class="btn custom-btn" type="submit"><span>Login</span></button>
 
-      <!-- Campo Senha -->
-      <div class="label-float">
+			</div>
 
-        <label id="senhaLabel" for="senha">Senha</label>
-        <input type="password" id="senha" placeholder="Senha do usuário cadastrado" required>
-        <i class="fa fa-eye fa-eye-slash" aria-hidden="true" id="verSenha"></i>
+			<p>
+				Não tem Cadastro?
+				<a href="../views/cadastro.html"> Cadastre-se</a>
+			</p>
 
-      </div>
-      
-      <div class="justify-center wrap">
+		</form>
+  	</div>
 
-        <button class="btn custom-btn" onclick="entrar()"><span>Login</span></button>
-
-      </div>
-
-      
-      <p>Não tem Cadastro?
-        <a href="../views/cadastro.html"> Cadastre-se</a>
-      </p>
-      
-    </div>
-    
-    
-  
-    </div>
-
-<script src=""></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  	<script src="/frontend/scripts/login.js"></script>
 </body>
 </html>

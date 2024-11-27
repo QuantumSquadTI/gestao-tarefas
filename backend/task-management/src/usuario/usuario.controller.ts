@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Res, HttpStatus, Response, HttpCode, HttpException, Query, Delete, Param } from "@nestjs/common";
+import { Body, Controller, Get, Post, HttpStatus, HttpCode, HttpException, Query, Delete, Param, Put } from "@nestjs/common";
 import { UsuarioService } from "./usuario.service";
 import { UsuarioDto } from "./dto/usuario.dto";
 import { UsuarioMapper } from "./usuario.mapper";
@@ -67,9 +67,7 @@ export class UsuarioController{
         }
     }
 
-    
-
-    @Get('confirmar-cadastro')
+    @Put('confirmar-cadastro')
     async confirmarCadastro(@Query('token') token: string){
         if (!token){
             throw new HttpException("Token não encontrado", HttpStatus.BAD_REQUEST)

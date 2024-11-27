@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/cadastro.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
     <title>Cadastro</title>
-    <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">  
-    </head>
 </head>
 <body>
     
@@ -19,21 +17,21 @@
             <div id='msgError'></div>
             <div id='msgSuccess'></div>
             
-            <div class="label-float">
+            <div class="label-float" name="nome">
 
                 <input type="text" id="nome" required>
                 <label id="labelNome" for="nome">Nome Completo</label>
 
             </div>
             
-            <div class="label-float">
+            <div class="label-float" name="email">
 
                 <input type="email" id="email" required>
                 <label id="labelEmail" for="email">E-mail</label>
 
             </div>
             
-            <div class="label-float">
+            <div class="label-float" name="senha">
 
                 <input type="password" id="senha" required>
                 <label id="labelSenha" for="senha">Senha</label>
@@ -41,14 +39,14 @@
 
             </div>
             
-            <div class='justify-center'>
+            <div class='justify-center' name="botão">
                 <button type="submit">Cadastrar</button>
             </div>
             
             <br>
-
-            <p class="justify-center">Já tem cadastro? 
-                <a href="../views/login.html">      Login</a>
+            <p class="justify-center">
+                Já tem cadastro? 
+                <a href="../views/login.html">Login</a>
             </p>
 
         </form>

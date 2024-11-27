@@ -32,6 +32,18 @@
     max-width: 25rem; /* 25rem = 400px */
   }
   
+  a{
+    color: #aaa8be;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all .3s ease-out;
+    margin-left: 0.5rem;
+  }
+  
+  a:hover{
+    color: #272262;
+  }
+
   .message-box h1 {
     color: #080052;
     margin-bottom: 0.625rem; /* 0.625rem = 10px */

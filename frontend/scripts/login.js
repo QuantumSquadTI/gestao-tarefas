@@ -1,70 +1,38 @@
+const formLogin = document.getElementById("formLogin");
 
-// Função para mostrar/ocultar a senha
-let btn = document.querySelector('.fa-eye');
 
+formLogin.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+
+    const body = {
+        email: email,
+        senha: senha
+    }
+    
+    try{
+        const response = await axios.post("http://localhost:3000/usuario/login", body)
+        
+        console.log(response);
+        // window.location.href = *;
+    }catch(error){
+        console.error("Erro ao cadastrar usuário:", error);
+    }
+})
+
+const btn = document.getElementById("verSenha");
+
+// Função para mostrar/ocultar senha
 btn.addEventListener('click', () => {
-  let inputSenha = document.querySelector('#senha');
-  if (inputSenha.getAttribute('type') === 'password') {
-    inputSenha.setAttribute('type', 'text');
-  } else {
-    inputSenha.setAttribute('type', 'password');
-  }
+    if (senha.type === 'password') {
+        senha.type = 'text';
+        btn.classList.add('fa-eye');
+        btn.classList.remove('fa-eye-slash');
+    } else {
+        senha.type = 'password';
+        btn.classList.add('fa-eye-slash');
+        btn.classList.remove('fa-eye');
+    }
 });
-
-// Função de login
-function entrar() {
-  let usuario = document.querySelector("#user");
-  let userLabel = document.querySelector("#userLabel");
-
-  let email = document.querySelector("#email");
-  let emailLabel = document.querySelector("#emailLabel");
-
-  let senha = document.querySelector("#senha");
-  let senhaLabel = document.querySelector("#senhaLabel");
-
-  let msgError = document.querySelector("#msgError");
-  let listaUser = []; 
-
-  let userValid = {
-    nome: "",
-    user: "",
-    email: "",
-    senha: ""
-  };
-
-  listaUser = JSON.parse(localStorage.getItem("listaUser")) || []; // Adicionado fallback para caso listaUser seja null
-
-  listaUser.forEach((Element) => {
-    if (usuario.value === Element.userCad && senha.value === Element.senhaCad) {
-      userValid = {
-        user: Element.userCad,
-        CNPJ: Element.CNPJCad,
-        nome: Element.nomeEmpresaCad,
-        senha: Element.senhaCad
-      };
-    } 
-  });
-
-  if (usuario.value === userValid.user && senha.value === userValid.senha) {
-    setTimeout(() => {
-      window.location.href = "../"; 
-      
-      //  ADICIONAR ROTA PARA O PAINEL CENTRAL
-
-    }, 100);
-
-    let token = Math.random().toString(16).substring(2) + Math.random().toString(16).substring(2);
-    localStorage.setItem("token", token);
-    localStorage.setItem("userLogado", JSON.stringify(userValid));
-  } else {
-    userLabel.setAttribute("style", "color: red");
-    usuario.setAttribute("style", "border-color: red");
-    senhaLabel.setAttribute("style", "color: red");
-    senha.setAttribute("style", "border-color: red");
-    msgError.setAttribute("style", "display: block");
-    msgError.innerHTML = "Usuário ou Senha incorretos";
-    usuario.focus();
-
-    alert("Usuário ou Senha incorretos");
-  }
-}
