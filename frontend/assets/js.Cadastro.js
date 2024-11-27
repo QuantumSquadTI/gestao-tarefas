@@ -1,8 +1,18 @@
-// alterado
+// Seleção dos elementos do DOM
+let btn = document.querySelector('.fa-eye');
+let inputSenha = document.querySelector('#senha');
+let email = document.querySelector('#email');
+let senha = document.querySelector('#senha');
+let confirmSenha = document.querySelector('#confirmSenha');
+let labelEmail = document.querySelector('#labelEmail');
+let labelSenha = document.querySelector('#labelSenha');
+let labelConfirmSenha = document.querySelector('#labelConfirmSenha');
+let validEmail = false;
+let validSenha = false;
+let validConfirmSenha = false;
+
 
 // faz o olho de acultar fechar e abrir  
-let btn = document.querySelector('.fa-eye')
-let inputSenha = document.querySelector('#senha');
 
 btn.addEventListener('click', () => {
         if (senha.type === 'password') {
@@ -63,4 +73,40 @@ confirmSenha.addEventListener('keyup', () => {
         confirmSenha.setAttribute('style', 'border-color: green');
         validConfirmSenha = true;
     }
+});
+
+// Função para enviar o formulário ao backend
+// Enviar os dados para o backend
+const formularioCadastro = document.querySelector('#formCadastro');
+formularioCadastro.addEventListener('submit', async (event) => {
+    event.preventDefault(); // Impede o envio padrão do formulário
+
+    if (validEmail && validSenha && validConfirmSenha) {
+        const dadosCadastro = {
+            email: email.value,
+            senha: senha.value,
+        };
+
+        try {
+            const response = await fetch('http://seu-backend-url/usuarios/cadastrar', { //colocar a url certa 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dadosCadastro),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert('Cadastro realizado com sucesso!');
+                // Redirecionar ou fazer outras ações após o sucesso
+            } else {
+                alert('Erro ao cadastrar: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Erro ao enviar dados:', error);
+            alert('Erro ao tentar cadastrar. Tente novamente mais tarde.');
+        }
+    } 
 });

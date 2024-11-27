@@ -31,21 +31,27 @@ export class UsuarioController{
         }
     }
 
+    // LOGIN
     @Post("login")
     @HttpCode(HttpStatus.OK) 
-    async login(@Body() loginUsuarioDto: LoginUsuarioDto) {
+    @Post('login')
+    async login(@Body() loginData: { email: string; senha: string }) {
         try {
-            const token = await this.usuarioService.login(loginUsuarioDto.email, loginUsuarioDto.senha);
-    
+            const { email, senha } = loginData;
+            const token = await this.usuarioService.login(email, senha);
+
             return {
                 statusCode: HttpStatus.OK,
                 message: "Login realizado com sucesso",
-                data: token
+                data: { token },
             };
         } catch (error) {
             console.error("Erro ao realizar login:", error);
 
-            throw new HttpException("Erro ao realizar login", HttpStatus.INTERNAL_SERVER_ERROR,);
+            throw new HttpException(
+                error.message || "Erro ao realizar login",
+                error.status || HttpStatus.UNAUTHORIZED,
+            );
         }
     }
 
