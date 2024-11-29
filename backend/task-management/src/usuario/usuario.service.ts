@@ -19,7 +19,6 @@ export class UsuarioService{
     async cadastrar(novoUsuario: Usuario): Promise <Usuario>{
         
         const email = novoUsuario.getEmail;
-        console.log(email)
         const senha = novoUsuario.getSenha;
 
         const resultado: (UsuarioEntity | undefined) = await this.usuarioRepository.findOne({where: { email }})

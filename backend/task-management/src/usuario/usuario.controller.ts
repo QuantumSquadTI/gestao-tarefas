@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post, HttpStatus, HttpCode, HttpException, Query, Delete, Param, Put } from "@nestjs/common";
+import { Body, Controller, Get, Post, HttpStatus, HttpCode, HttpException, Query, Delete, Param, Put, UseGuards } from "@nestjs/common";
 import { UsuarioService } from "./usuario.service";
 import { UsuarioDto } from "./dto/usuario.dto";
 import { UsuarioMapper } from "./usuario.mapper";
 import { LoginUsuarioDto } from "./dto/loginUsuario.dto";
+import { JwtAuthGuard } from "./guard";
 
 @Controller("usuario")
 export class UsuarioController{
@@ -32,7 +33,7 @@ export class UsuarioController{
     }
 
     @Post("login")
-    @HttpCode(HttpStatus.OK) 
+    @HttpCode(HttpStatus.OK)
     async login(@Body() loginUsuarioDto: LoginUsuarioDto) {
         try {
             const token = await this.usuarioService.login(loginUsuarioDto.email, loginUsuarioDto.senha);
@@ -51,6 +52,7 @@ export class UsuarioController{
 
     @Post("logout")
     @HttpCode(HttpStatus.OK)
+    @UseGuards(JwtAuthGuard)
     async logout(@Body() token: string) {
         try {
             await this.usuarioService.invalidarToken(token);

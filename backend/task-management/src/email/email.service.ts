@@ -24,7 +24,7 @@ export class EmailService {
                 Olá,
     
                 Clique no link para confirmar seu cadastro:
-                http://127.0.0.1:3000/frontend/views/confirmado.html?token=${token}
+                http://127.0.0.1:3000/frontend/views/confirmado.html#token=${token}
                 
                 Atenciosamente,
                 Equipe Quantum Squad`,
