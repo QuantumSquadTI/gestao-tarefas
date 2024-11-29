@@ -249,6 +249,10 @@ button {
   }
 }
 
+#lembre2{
+  font-size: large;
+}
+
 .justify-center{
   display: flex;
   justify-content: center;
