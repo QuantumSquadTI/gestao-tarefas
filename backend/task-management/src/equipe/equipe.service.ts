@@ -8,6 +8,7 @@ import { Equipe } from './domain/equipe.domain';
 import { EquipeMapper } from './equipe.mapper';
 import { UsuarioService } from 'src/usuario/usuario.service';
 import { console } from 'inspector';
+import { EquipeDto } from './dto/equipe.dto';
 
 @Injectable()
 export class EquipeService {
@@ -34,14 +35,30 @@ export class EquipeService {
         if (count >= 3){
             throw new HttpException("Não foi possivel criar usuário", HttpStatus.BAD_REQUEST);
         }
-
-        
         
         const equipeCriada = await this.equipeRepository.save(EquipeMapper.domainToEntity(equipe));
         const usuario_equipe = new UsuarioEquipeEntity(idU, equipeCriada.idE, Funcao.ADMINISTRADOR)
         await this.usuEquRepository.save(usuario_equipe)
 
         return equipeCriada;
+    }
+
+    async listarTodos(idU: number){
+        const listaEquipesUsuarios = this.usuEquRepository.find({where: {idU: idU}})
+
+        const listaEquipes: Array<EquipeEntity> = new Array();
+
+        for (const linha of await listaEquipesUsuarios) {
+            const equipe = await this.equipeRepository.findOne({ where: { idE: linha.idE } });
+            if (equipe) {
+                listaEquipes.push(equipe);
+            }
+        }
+
+        const listaDominios: Equipe[] = listaEquipes.map(EquipeMapper.entityToDomain);
+        const listaDtos: EquipeDto[] = listaDominios.map(EquipeMapper.domainToDto);
+
+        return listaDtos
     }
 
     // async adicionarMembro(idE: number, idU: number, idMembroNovo: number){

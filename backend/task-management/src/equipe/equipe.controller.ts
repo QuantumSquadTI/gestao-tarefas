@@ -47,11 +47,15 @@ export class EquipeController {
     }
 
     @Get(":idU")
-    async listarTodos(){
-        return {
-            statusCode: HttpStatus.OK,
-            message: "Mostrando todas as equipes"
-        }
+    async listarTodos(@Param("idU") idU: number){
+      
+      const response = await this.equipeService.listarTodos(idU);
+      
+      return {
+          statusCode: HttpStatus.OK,
+          message: "Mostrando todas as equipes",
+          data: response
+      }
     }
 
     

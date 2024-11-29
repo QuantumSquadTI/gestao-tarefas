@@ -1,35 +1,30 @@
+document.addEventListener('DOMContentLoaded', async () => {
 
+  let idU;
 
+  try{
+    const token = localStorage.getItem("token");
 
+    if (token) {
+      const payloadBase64 = token.split('.')[1];
+      const payloadDecoded = JSON.parse(atob(payloadBase64));
+      idU = payloadDecoded.idU;
+    }
 
-
-document.addEventListener('DOMContentLoaded', () => {
-  const teams = [
-    { id: 1, name: "Equipe Alpha" },
-    { id: 2, name: "Equipe Beta" },
-    { id: 3, name: "Equipe Gama" },
-  ];
-
-  const teamList = document.getElementById('teams');
-
-  // Renderiza as equipes na tela
-
-  const renderTeams = () => {
-    teamList.innerHTML = ''; 
-    teams.forEach(team => {
-      const li = document.createElement('li');
-      li.textContent = team.name;
-      const detailsButton = document.createElement('button');
-      detailsButton.textContent = 'Detalhes';
-      detailsButton.onclick = () => alert(`Detalhes da ${team.name}`);
-      li.appendChild(detailsButton);
-      teamList.appendChild(li);
-    });
-  };
-
-  renderTeams();
-
-  // Redireciona para a tela de adicionar equipe
+    const response = await axios.get(
+      `http://localhost:3001/equipe/${idU}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+    console.log(response.data)
+  }catch(error){
+    console.error(error)
+    alert(`Erro ao listar equipes: ${error.response.data.message}`)
+  }
 
   document.getElementById('add-team-btn').addEventListener('click', () => {
     window.location.href = 'CriarEquipe.html'; // Substituair para link correto
