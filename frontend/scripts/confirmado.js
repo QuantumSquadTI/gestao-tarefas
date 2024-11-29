@@ -1,10 +1,10 @@
-const params = new URLSearchParams(window.location.search);
-const token = params.get("token");
-
 document.addEventListener("DOMContentLoaded", async () => {
+  const hash = window.location.hash;
+  const token = new URLSearchParams(hash.replace("#", "")).get("token");
+
   try{
     const response = axios.put(
-      `http://localhost:3000/usuario/confirmar-cadastro?token=${token}`,
+      `http://localhost:3001/usuario/confirmar-cadastro?token=${token}`,
     )
 
     console.log("Resposta do backend:", response.data);

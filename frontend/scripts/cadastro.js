@@ -1,6 +1,5 @@
 const formCadastro = document.getElementById("formCadastro");
 
-
 formCadastro.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -15,20 +14,19 @@ formCadastro.addEventListener("submit", async (e) => {
     }
     
     try{
-        const response = await axios.post("http://localhost:3000/usuario", body)
+        const response = await axios.post("http://localhost:3001/usuario", body)
         
         console.log(response);
         window.location.href = "/frontend/views/login.html";
     }catch(error){
-        console.error("Erro ao cadastrar usuário:", error);
+        console.log(error)
+        alert(`Erro ao cadastrar usuário: ${error.response.data.message}`)
     }
 })
 
 
-
 const btn = document.getElementById("verSenha");
 
-// Função para mostrar/ocultar senha
 btn.addEventListener('click', () => {
     if (senha.type === 'password') {
         senha.type = 'text';
@@ -40,3 +38,4 @@ btn.addEventListener('click', () => {
         btn.classList.remove('fa-eye');
     }
 });
+

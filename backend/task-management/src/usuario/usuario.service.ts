@@ -19,7 +19,6 @@ export class UsuarioService{
     async cadastrar(novoUsuario: Usuario): Promise <Usuario>{
         
         const email = novoUsuario.getEmail;
-        console.log(email)
         const senha = novoUsuario.getSenha;
 
         const resultado: (UsuarioEntity | undefined) = await this.usuarioRepository.findOne({where: { email }})
@@ -45,7 +44,7 @@ export class UsuarioService{
     async login(email: string, senha: string): Promise<string> {
         const usuario = this.buscarPorEmail(email)
 
-        if (!(await usuario).isAtivo){
+        if (!(await usuario).isAtivo){       
             throw new HttpException("Usuário não está confirmado", HttpStatus.UNAUTHORIZED);
         }
 
@@ -53,7 +52,7 @@ export class UsuarioService{
             throw new HttpException("Senha errada", HttpStatus.UNAUTHORIZED);
         }
     
-        const token = this.gerarToken(email);
+        const token = this.gerarToken(email, (await usuario).getId);
     
         return token;
     }
@@ -71,7 +70,7 @@ export class UsuarioService{
     async buscarPorEmail(email: string): Promise<Usuario> {
         const user = await this.usuarioRepository.findOne({where: { email }});
         if (!user) {
-            throw new HttpException("Usuário não encontrado" ,HttpStatus.NOT_FOUND);
+            throw new HttpException("Email não encontrado" ,HttpStatus.NOT_FOUND);
         }
         return UsuarioMapper.entityToDomain(user);
     }
@@ -115,8 +114,8 @@ export class UsuarioService{
         await this.usuarioRepository.delete(idU);
     }
 
-    private gerarToken(email: string): string{
-        const payload = { email };
+    private gerarToken(email: string, idU?: number): string{
+        const payload = { email, idU };
         const segredo = 'G7@!pX8$uM^3kN2&rL6*qV1#tFzJ9zA';
         const opcoes = { expiresIn: '1h' }
     

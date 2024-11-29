@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Post, HttpStatus, HttpCode, HttpException, Query, Delete, Param, Put } from "@nestjs/common";
+import { Body, Controller, Get, Post, HttpStatus, HttpCode, HttpException, Query, Delete, Param, Put, UseGuards } from "@nestjs/common";
 import { UsuarioService } from "./usuario.service";
 import { UsuarioDto } from "./dto/usuario.dto";
 import { UsuarioMapper } from "./usuario.mapper";
 import { LoginUsuarioDto } from "./dto/loginUsuario.dto";
+
 
 @Controller("usuario")
 export class UsuarioController{
@@ -14,44 +15,33 @@ export class UsuarioController{
     @Post("")
     @HttpCode(HttpStatus.CREATED)
     async cadastrar(@Body() novoUsuario: UsuarioDto) {
+        const usuarioRegistrado: UsuarioDto = UsuarioMapper.domainToDto(
+            await this.usuarioService.cadastrar(UsuarioMapper.dtoToDomain(novoUsuario))
+        )
 
-        try{
-            const usuarioRegistrado: UsuarioDto = UsuarioMapper.domainToDto(
-                await this.usuarioService.cadastrar(UsuarioMapper.dtoToDomain(novoUsuario))
-            )
-
-            return {
-                statusCode: HttpStatus.CREATED,
-                message: "Usuário cadastrado com sucesso",
-                data: usuarioRegistrado,
-            };
-        }catch(error){
-            console.error("Erro ao cadastrar usuário:", error);
-            throw new HttpException("Erro ao cadastrar usuário", HttpStatus.INTERNAL_SERVER_ERROR)
-        }
+        return {
+            statusCode: HttpStatus.CREATED,
+            message: "Usuário cadastrado com sucesso",
+            data: usuarioRegistrado,
+        };
     }
 
     @Post("login")
-    @HttpCode(HttpStatus.OK) 
+    @HttpCode(HttpStatus.OK)
     async login(@Body() loginUsuarioDto: LoginUsuarioDto) {
-        try {
-            const token = await this.usuarioService.login(loginUsuarioDto.email, loginUsuarioDto.senha);
-    
-            return {
-                statusCode: HttpStatus.OK,
-                message: "Login realizado com sucesso",
-                data: token
-            };
-        } catch (error) {
-            console.error("Erro ao realizar login:", error);
+        const token = await this.usuarioService.login(loginUsuarioDto.email, loginUsuarioDto.senha);
 
-            throw new HttpException("Erro ao realizar login", HttpStatus.INTERNAL_SERVER_ERROR,);
-        }
+        return {
+            statusCode: HttpStatus.OK,
+            message: "Login realizado com sucesso",
+            data: token
+        };
     }
 
     @Post("logout")
     @HttpCode(HttpStatus.OK)
     async logout(@Body() token: string) {
+        console.log("ola")
         try {
             await this.usuarioService.invalidarToken(token);
             return {
@@ -98,5 +88,4 @@ export class UsuarioController{
             message: "Usuário deletado com sucesso."
         }
     }
-
 }

@@ -1,6 +1,6 @@
 import { EquipeEntity } from "src/equipe/entity/equipe.entity";
 import { UsuarioEntity } from "src/usuario/entity/usuario.entity";
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 
 export enum Funcao{
     ADMINISTRADOR = 'Administrador',
