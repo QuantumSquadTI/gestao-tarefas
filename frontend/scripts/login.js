@@ -13,7 +13,7 @@ formLogin.addEventListener("submit", async (e) => {
     }
     
     try{
-        const response = await axios.post("http://localhost:3000/usuario/login", body)
+        const response = await axios.post("http://localhost:3001/usuario/login", body)
 
         const token = response.data.data;
         localStorage.setItem("token", token);
@@ -21,7 +21,8 @@ formLogin.addEventListener("submit", async (e) => {
         console.log(response);
         window.location.href = "/frontend/views/principal.html";
     }catch(error){
-        console.error("Erro ao cadastrar usuário:", error);
+        console.error("Erro ao entrar", error);
+        alert(`Erro ao entrar: ${error.response.data.message}`)
     }
 })
 

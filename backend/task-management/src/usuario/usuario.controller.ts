@@ -15,39 +15,27 @@ export class UsuarioController{
     @Post("")
     @HttpCode(HttpStatus.CREATED)
     async cadastrar(@Body() novoUsuario: UsuarioDto) {
+        const usuarioRegistrado: UsuarioDto = UsuarioMapper.domainToDto(
+            await this.usuarioService.cadastrar(UsuarioMapper.dtoToDomain(novoUsuario))
+        )
 
-        try{
-            const usuarioRegistrado: UsuarioDto = UsuarioMapper.domainToDto(
-                await this.usuarioService.cadastrar(UsuarioMapper.dtoToDomain(novoUsuario))
-            )
-
-            return {
-                statusCode: HttpStatus.CREATED,
-                message: "Usuário cadastrado com sucesso",
-                data: usuarioRegistrado,
-            };
-        }catch(error){
-            console.error("Erro ao cadastrar usuário:", error);
-            throw new HttpException("Erro ao cadastrar usuário", HttpStatus.INTERNAL_SERVER_ERROR)
-        }
+        return {
+            statusCode: HttpStatus.CREATED,
+            message: "Usuário cadastrado com sucesso",
+            data: usuarioRegistrado,
+        };
     }
 
     @Post("login")
     @HttpCode(HttpStatus.OK)
     async login(@Body() loginUsuarioDto: LoginUsuarioDto) {
-        try {
-            const token = await this.usuarioService.login(loginUsuarioDto.email, loginUsuarioDto.senha);
-    
-            return {
-                statusCode: HttpStatus.OK,
-                message: "Login realizado com sucesso",
-                data: token
-            };
-        } catch (error) {
-            console.error("Erro ao realizar login:", error);
+        const token = await this.usuarioService.login(loginUsuarioDto.email, loginUsuarioDto.senha);
 
-            throw new HttpException("Erro ao realizar login", HttpStatus.INTERNAL_SERVER_ERROR,);
-        }
+        return {
+            statusCode: HttpStatus.OK,
+            message: "Login realizado com sucesso",
+            data: token
+        };
     }
 
     @Post("logout")

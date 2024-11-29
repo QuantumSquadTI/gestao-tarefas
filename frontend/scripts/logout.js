@@ -3,7 +3,7 @@ console.log("Script logout.js carregado com sucesso!");
 
 function resetTimer() {
     clearTimeout(timeout);
-    timeout = setTimeout(logout, 5 * 1000); // 15 segundos
+    timeout = setTimeout(logout, 15 * 60 * 1000); // 15 minutos
 }
 
 async function logout() {
@@ -18,7 +18,7 @@ async function logout() {
 
     try {
         const logoutResponse = await axios.post(
-            "http://localhost:3000/usuario/logout", 
+            "http://localhost:3001/usuario/logout", 
             body,
             {
                 headers: {

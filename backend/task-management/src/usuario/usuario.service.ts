@@ -44,7 +44,7 @@ export class UsuarioService{
     async login(email: string, senha: string): Promise<string> {
         const usuario = this.buscarPorEmail(email)
 
-        if (!(await usuario).isAtivo){
+        if (!(await usuario).isAtivo){       
             throw new HttpException("Usuário não está confirmado", HttpStatus.UNAUTHORIZED);
         }
 
@@ -70,7 +70,7 @@ export class UsuarioService{
     async buscarPorEmail(email: string): Promise<Usuario> {
         const user = await this.usuarioRepository.findOne({where: { email }});
         if (!user) {
-            throw new HttpException("Usuário não encontrado" ,HttpStatus.NOT_FOUND);
+            throw new HttpException("Email não encontrado" ,HttpStatus.NOT_FOUND);
         }
         return UsuarioMapper.entityToDomain(user);
     }
