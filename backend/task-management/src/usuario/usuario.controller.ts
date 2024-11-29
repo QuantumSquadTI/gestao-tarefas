@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { Body, Controller, Get, Post, HttpStatus, HttpCode, HttpException, Query, Delete, Param, Put } from "@nestjs/common";
-=======
-import { Body, Controller, Get, Post, Res, HttpStatus, Response, HttpCode, HttpException, Query, Delete, Param } from "@nestjs/common";
->>>>>>> bca87ce48669797038284a8edc0f1a830ff2dd6a
 import { UsuarioService } from "./usuario.service";
 import { UsuarioDto } from "./dto/usuario.dto";
 import { UsuarioMapper } from "./usuario.mapper";
@@ -102,8 +98,4 @@ export class UsuarioController{
             message: "Usuário deletado com sucesso."
         }
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> bca87ce48669797038284a8edc0f1a830ff2dd6a
 }

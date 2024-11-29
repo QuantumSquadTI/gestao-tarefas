@@ -16,7 +16,7 @@ formLogin.addEventListener("submit", async (e) => {
         const response = await axios.post("http://localhost:3000/usuario/login", body)
         
         console.log(response);
-        // window.location.href = *;
+        window.location.href = "/frontend/views/principal.html";
     }catch(error){
         console.error("Erro ao cadastrar usuário:", error);
     }
@@ -24,7 +24,6 @@ formLogin.addEventListener("submit", async (e) => {
 
 const btn = document.getElementById("verSenha");
 
-// Função para mostrar/ocultar senha
 btn.addEventListener('click', () => {
     if (senha.type === 'password') {
         senha.type = 'text';

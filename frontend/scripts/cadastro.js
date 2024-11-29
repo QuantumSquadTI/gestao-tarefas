@@ -1,6 +1,5 @@
 const formCadastro = document.getElementById("formCadastro");
 
-
 formCadastro.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -25,10 +24,8 @@ formCadastro.addEventListener("submit", async (e) => {
 })
 
 
-
 const btn = document.getElementById("verSenha");
 
-// Função para mostrar/ocultar senha
 btn.addEventListener('click', () => {
     if (senha.type === 'password') {
         senha.type = 'text';
@@ -40,3 +37,4 @@ btn.addEventListener('click', () => {
         btn.classList.remove('fa-eye');
     }
 });
+
