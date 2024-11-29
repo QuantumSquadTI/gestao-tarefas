@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { google } from 'googleapis';
 import * as nodemailer from 'nodemailer';
 
 @Injectable()

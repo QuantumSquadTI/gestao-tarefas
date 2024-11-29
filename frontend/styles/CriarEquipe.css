@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "PT Sans", sans-serif;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-image: url("../assets/image/background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #2d59ec;
+}
+
+form div {
+  margin-bottom: 1.5rem;
+  color: #0a31b0;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #2d59ec;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.4rem;
+  margin-top: 0.5rem;
+  border: 0.2rem solid #030eb6;
+  border-radius: 0.5rem;
+}
+
+.container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.1);
+  width: 40rem;
+}
+
+/* BOTAO CRIAR */
+.btn {
+  background: #667adc;
+  background: linear-gradient(0deg, #6682dc 0%, #0b2db7 100%);
+  width: 20rem;
+  height: 7rem;
+  line-height: 7rem;
+  padding: 0;
+  border: none;
+  position: relative; 
+  overflow: hidden;
+}
+
+.btn span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: #f6f6f6;
+  font-size: 2rem;
+}
+
+.btn:before,
+.btn:after {
+  position: absolute;
+  content: "";
+  right: 0;
+  top: 0;
+   background: rgb(2, 102, 251);
+  transition: all 0.3s ease;
+}
+
+.btn:before {
+  height: 0%;
+  width: 0.2rem;
+}
+
+.btn:after {
+  width: 0%;
+  height: 0.2rem;
+}
+
+.btn:hover{
+   background: transparent;
+  box-shadow: none;
+}
+
+.btn:hover:before {
+  height: 100%;
+}
+
+.btn:hover:after {
+  width: 100%;
+}
+
+.btn span:hover{
+   color: rgb(2, 102, 251);
+}
+
+.btn span:before,
+.btn span:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: 0;
+   background: rgb(12, 92, 212);
+  transition: all 0.3s ease;
+}
+
+.btn span:before {
+  width: 0.2rem;
+  height: 0%;
+}
+
+.btn span:after {
+  width: 0%;
+  height: 0.2rem;
+}
+
+.btn span:hover:before {
+  height: 100%;
+}
+
+.btn span:hover:after {
+  width: 100%;
+}
+
+
+@keyframes ring {
+  0% {
+    width: 3rem;
+    height: 3rem;
+    opacity: 1;
+  }
+  100% {
+    width: 30rem;
+    height: 30rem;
+    opacity: 0;
+  }
+}
+
+.justify-center{
+  display: flex;
+  justify-content: center;
+}
