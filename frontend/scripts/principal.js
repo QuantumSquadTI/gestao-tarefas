@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
-
   let idU;
+  const teamList = document.getElementById('teams');
 
   try{
     const token = localStorage.getItem("token");
@@ -20,6 +20,38 @@ document.addEventListener('DOMContentLoaded', async () => {
           'Content-Type': 'multipart/form-data'
         }
       })
+
+    const listaEquipes = response.data.data;
+    console.log(listaEquipes);
+    
+
+    const renderTeams = () => {
+      teamList.innerHTML = '';
+      listaEquipes.forEach(team => {
+        const li = document.createElement('li');
+
+        const img = document.createElement('img');
+        img.src = `http://127.0.0.1:3000/${team.fotoEquipe}`;
+        img.alt = `Imagem de ${team.nome}`;
+        img.style.width = '50px'; // Define a largura da imagem (opcional)
+        img.style.height = '50px'; // Define a altura da imagem (opcional)
+        li.appendChild(img);
+
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = team.nome;
+        nameSpan.style.fontSize = '18px'
+        li.appendChild(nameSpan);
+
+        const detailsButton = document.createElement('button');
+        detailsButton.textContent = 'Detalhes';
+        detailsButton.onclick = () => alert(`Detalhes da ${team.name}`);
+        li.appendChild(detailsButton);
+
+        teamList.appendChild(li);
+      });
+    };
+  
+    renderTeams();
     console.log(response.data)
   }catch(error){
     console.error(error)

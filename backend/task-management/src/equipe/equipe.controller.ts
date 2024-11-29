@@ -18,7 +18,7 @@ export class EquipeController {
     @UseInterceptors(
         FileInterceptor('fotoEquipe', { 
           storage: diskStorage({
-            destination: '/frontend/assets/image',
+            destination: 'C:\\Users\\USER\\Desktop\\REPOSITÓRIOS\\TRABALHO IMERSAO\\gestao-tarefas\\frontend\\assets\\image',
             filename: (req, file, callback) => {
               const fileExtension = path.extname(file.originalname);
               const fileName = `${Date.now()}${fileExtension}`;
@@ -33,7 +33,7 @@ export class EquipeController {
         throw new HttpException ('Imagem não enviada', HttpStatus.BAD_REQUEST);
       }
 
-      const imageUrl = `frontend/assets/images/${file.filename}`;
+      const imageUrl = `frontend/assets/image/${file.filename}`;
       
       const equipeCriada = await this.equipeService.criarEquipe(
           idU, EquipeMapper.dtoToDomain({ ...equipe, fotoEquipe: imageUrl })

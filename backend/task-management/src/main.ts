@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as path from 'path';
+import * as express from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -15,9 +16,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  app.useStaticAssets(path.join(__dirname, '..', 'assets'), {
-    prefix: '/assets/', 
-  });
+  app.use('/frontend/assets/image', express.static(path.join(__dirname, 'frontend/assets/image')));
   
   await app.listen(3001);
 }
