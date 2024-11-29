@@ -7,6 +7,7 @@ import { Funcao } from 'src/usuario_equipe/entity/usu.eq.entity'
 import { Equipe } from './domain/equipe.domain';
 import { EquipeMapper } from './equipe.mapper';
 import { UsuarioService } from 'src/usuario/usuario.service';
+import { console } from 'inspector';
 
 @Injectable()
 export class EquipeService {
@@ -26,6 +27,7 @@ export class EquipeService {
     }
 
     async criarEquipe(idU: number ,  equipe: Equipe ){
+        console.log(equipe)
         this.usuarioService.buscarPorId(idU);
         const [admins, count] = await this.usuEquRepository.findAndCount({where: {idU, funcao: Funcao.ADMINISTRADOR} });
 

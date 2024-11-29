@@ -12,33 +12,32 @@ teamForm.addEventListener('submit', async (e) => {
   const nomeValue = nome.value;
   const descValue = desc.value;
   const imgFile = img.files[0];
-  const imgUrl = imgFile ? URL.createObjectURL(imgFile) : null;
 
-  const body = {
-    nome: nomeValue,
-    descricao: descValue,
-    fotoEquipe: imgUrl, 
-  };
+  const formData = new FormData();
+  formData.append('nome', nomeValue);
+  formData.append('descricao', descValue);
+  formData.append('fotoEquipe', imgFile);
 
   try{
-
     const token = localStorage.getItem("token");
     if (token) {
-      
       const payloadBase64 = token.split('.')[1];
       const payloadDecoded = JSON.parse(atob(payloadBase64));
-    
       idU = payloadDecoded.idU;
-      console.log('ID do Usuário:', idU);
     }
+
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
     
 
     const response = await axios.post(
       `http://localhost:3001/equipe/${idU}`,
-      body,
+      formData,
       {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
         }
       })
     

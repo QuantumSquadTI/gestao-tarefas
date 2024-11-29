@@ -15,7 +15,7 @@ export class EquipeDto{
     descricao: string
 
     @IsString()
-    @IsNotEmpty()
+    @IsOptional()
     fotoEquipe: string
 
     constructor(
