@@ -1,4 +1,17 @@
 /* Estilo geral */
+* {
+  font-family: "PT Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  font-size: 100%;
+}
+
+/* Estilo geral */
+/* Estilo geral */
+/* Estilo geral */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -6,28 +19,29 @@ body {
   font-size: 1rem; /* Base para rem */
   background-image: url('../assets/img/background.svg'); /* Substitua 'background.jpg' pelo caminho da imagem */
   background-size: cover; /* A imagem cobre toda a tela */
-  background-position: center;
   background-attachment: fixed; /* Mantém a imagem fixa no scroll */
   color: #ffffff; /* Texto branco para contraste */
-}
-
-h1, h3 {
-  margin: 0;
-  padding: 0;
 }
 
 /* Cabeçalho */
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Alinha título à esquerda e o botão à direita */
   align-items: center;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.7); /* Fundo semitransparente para o cabeçalho */
-  color: #ffffff;
+  padding: 1rem 2rem; /* Aumenta o padding lateral para afastar da borda */
   position: relative;
-  z-index: 10; /* Garante que o cabeçalho fique acima do conteúdo */
+  z-index: 10;
 }
 
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #a13232;
+  text-align: left; /* Garante que o título está alinhado à esquerda */
+  flex: 1; /* Faz com que o título ocupe o espaço disponível */
+}
+
+/* Botão de alternância no canto inferior direito */
 .header button {
   background-color: #ffffff;
   color: #0078d7;
@@ -37,6 +51,10 @@ h1, h3 {
   cursor: pointer;
   border-radius: 0.5rem;
   transition: background-color 0.3s;
+  position: fixed;
+  bottom: 1rem; /* Posiciona no fundo */
+  right: 1rem; /* Posiciona à direita */
+  z-index: 5;
 }
 
 .header button:hover {
@@ -48,7 +66,7 @@ h1, h3 {
   display: flex;
   gap: 1rem;
   padding: 1rem;
-  margin: 0 auto;
+  margin-top: 4rem; /* Deixa um espaço acima do painel para o título */
   max-width: 80rem;
   z-index: 1;
 }
@@ -135,6 +153,8 @@ h1, h3 {
 
   .header button {
     width: 100%;
+    position: static;
+    margin-top: 1rem;
   }
 
   .kanban-column {
