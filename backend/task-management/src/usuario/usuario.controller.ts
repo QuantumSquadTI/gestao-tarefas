@@ -3,7 +3,7 @@ import { UsuarioService } from "./usuario.service";
 import { UsuarioDto } from "./dto/usuario.dto";
 import { UsuarioMapper } from "./usuario.mapper";
 import { LoginUsuarioDto } from "./dto/loginUsuario.dto";
-import { JwtAuthGuard } from "./guard";
+
 
 @Controller("usuario")
 export class UsuarioController{
@@ -52,8 +52,8 @@ export class UsuarioController{
 
     @Post("logout")
     @HttpCode(HttpStatus.OK)
-    @UseGuards(JwtAuthGuard)
     async logout(@Body() token: string) {
+        console.log("ola")
         try {
             await this.usuarioService.invalidarToken(token);
             return {

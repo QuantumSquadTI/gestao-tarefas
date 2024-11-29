@@ -14,6 +14,9 @@ formLogin.addEventListener("submit", async (e) => {
     
     try{
         const response = await axios.post("http://localhost:3000/usuario/login", body)
+
+        const token = response.data.data;
+        localStorage.setItem("token", token);
         
         console.log(response);
         window.location.href = "/frontend/views/principal.html";

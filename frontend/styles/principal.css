@@ -56,9 +56,9 @@ a:hover{
   width: 40rem;
 }
 
-.justify-center{
+.justify-evenly{
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 #team-list {
@@ -89,6 +89,20 @@ a:hover{
   border-radius: 0.8rem; 
   cursor: pointer;
   font-size: 1.6rem; 
+}
+
+#logout-btn {
+  background-color: #970000;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.8rem; 
+  cursor: pointer;
+  font-size: 1.6rem; 
+}
+
+#logout-btn:hover {
+  background-color: #f38787;
 }
 
 #add-team-btn:hover {
