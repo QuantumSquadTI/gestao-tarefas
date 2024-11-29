@@ -1,39 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kanban Board</title>
+  <title>Kanban com Dados Dinâmicos</title>
   <link rel="stylesheet" href="../styles/tarefas.css">
 </head>
 <body>
-  <div class="kanban-board">
-    <div class="kanban-column" id="pending">
+  <div class="header">
+    <h1>Painel de Tarefas da Equipe</h1>
+    <button id="toggle-view">Alternar para Lista</button>
+  </div>
+
+  <div class="board kanban-view">
+    <div class="kanban-column">
       <h3>Pendente</h3>
-      <div class="task-list">
-        <div class="task" data-status="pending">
-          <p>Tarefa 1</p>
-          <div class="task-actions">
-            <button class="move-btn" data-direction="right">→</button>
-          </div>
-        </div>
-        <div class="task" data-status="pending">
-          <p>Tarefa 2</p>
-          <div class="task-actions">
-            <button class="move-btn" data-direction="right">→</button>
-          </div>
-        </div>
+      <div class="task-list" id="pending-tasks">
+        <!-- tarefas pendentes -->
       </div>
     </div>
 
-    <div class="kanban-column" id="in-progress">
+    <div class="kanban-column">
       <h3>Em Andamento</h3>
-      <div class="task-list"></div>
+      <div class="task-list" id="in-progress-tasks">
+        <!-- tarefas em andamento -->
+      </div>
     </div>
 
-    <div class="kanban-column" id="completed">
+    <div class="kanban-column">
       <h3>Concluído</h3>
-      <div class="task-list"></div>
+      <div class="task-list" id="completed-tasks">
+        <!-- tarefas concluidas -->
+      </div>
     </div>
   </div>
 
