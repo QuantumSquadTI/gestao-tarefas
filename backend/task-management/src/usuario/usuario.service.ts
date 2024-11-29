@@ -52,7 +52,7 @@ export class UsuarioService{
             throw new HttpException("Senha errada", HttpStatus.UNAUTHORIZED);
         }
     
-        const token = this.gerarToken(email);
+        const token = this.gerarToken(email, (await usuario).getId);
     
         return token;
     }
@@ -114,8 +114,8 @@ export class UsuarioService{
         await this.usuarioRepository.delete(idU);
     }
 
-    private gerarToken(email: string): string{
-        const payload = { email };
+    private gerarToken(email: string, idU?: number): string{
+        const payload = { email, idU };
         const segredo = 'G7@!pX8$uM^3kN2&rL6*qV1#tFzJ9zA';
         const opcoes = { expiresIn: '1h' }
     

@@ -42,29 +42,29 @@ export class EquipeService {
         return equipeCriada;
     }
 
-    async adicionarMembro(idE: number, idU: number, idMembroNovo: number){
-        this.usuarioService.buscarPorId(idU)
-        this.isAdmistrador(idU)
+    // async adicionarMembro(idE: number, idU: number, idMembroNovo: number){
+    //     this.usuarioService.buscarPorId(idU)
+    //     this.isAdmistrador(idU)
         
-        const novoMembro = new UsuarioEquipeEntity(idMembroNovo, idE, Funcao.COLABORADOR)
+    //     const novoMembro = new UsuarioEquipeEntity(idMembroNovo, idE, Funcao.COLABORADOR)
 
-        return await this.usuEquRepository.save(novoMembro)
-    }
+    //     return await this.usuEquRepository.save(novoMembro)
+    // }
 
-    async mudarFuncao(idE, dadosAlterados: {idU, idAlterado, funcao}){
-        this.usuarioService.buscarPorId(dadosAlterados.idU)
-        this.usuarioService.buscarPorId(dadosAlterados.idAlterado)
-        this.isAdmistrador(dadosAlterados.idU)
+    // async mudarFuncao(idE, dadosAlterados: {idU, idAlterado, funcao}){
+    //     this.usuarioService.buscarPorId(dadosAlterados.idU)
+    //     this.usuarioService.buscarPorId(dadosAlterados.idAlterado)
+    //     this.isAdmistrador(dadosAlterados.idU)
 
 
-        return this.usuEquRepository.update({idU: dadosAlterados.idAlterado, idE: idE}, {funcao: dadosAlterados.funcao})
-    }
+    //     return this.usuEquRepository.update({idU: dadosAlterados.idAlterado, idE: idE}, {funcao: dadosAlterados.funcao})
+    // }
 
-    async removerMembro(idE, dadosRemover){
-        this.usuarioService.buscarPorId(dadosRemover.idU)
-        this.usuarioService.buscarPorId(dadosRemover.idAlterado)
-        this.isAdmistrador(dadosRemover.idU)
+    // async removerMembro(idE, dadosRemover){
+    //     this.usuarioService.buscarPorId(dadosRemover.idU)
+    //     this.usuarioService.buscarPorId(dadosRemover.idAlterado)
+    //     this.isAdmistrador(dadosRemover.idU)
 
-        this.usuEquRepository.delete({idE: idE, idU: dadosRemover.idAlterado})
-    }
+    //     this.usuEquRepository.delete({idE: idE, idU: dadosRemover.idAlterado})
+    // }
 }
