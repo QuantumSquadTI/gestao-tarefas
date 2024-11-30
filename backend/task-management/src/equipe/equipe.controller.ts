@@ -18,7 +18,7 @@ export class EquipeController {
     @UseInterceptors(
         FileInterceptor('fotoEquipe', { 
           storage: diskStorage({
-            destination: 'C:\\Users\\USER\\Desktop\\REPOSITÓRIOS\\TRABALHO IMERSAO\\gestao-tarefas\\frontend\\assets\\image',
+            destination: 'C:\\gestao-tarefas\\frontend\\assets\\image',
             filename: (req, file, callback) => {
               const fileExtension = path.extname(file.originalname);
               const fileName = `${Date.now()}${fileExtension}`;

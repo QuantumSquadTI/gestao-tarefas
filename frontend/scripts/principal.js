@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const img = document.createElement('img');
         img.src = `http://127.0.0.1:3000/${team.fotoEquipe}`;
         img.alt = `Imagem de ${team.nome}`;
-        img.style.width = '50px'; // Define a largura da imagem (opcional)
-        img.style.height = '50px'; // Define a altura da imagem (opcional)
+        img.style.width = '50px';
+        img.style.height = '50px';
         li.appendChild(img);
 
         const nameSpan = document.createElement('span');
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const detailsButton = document.createElement('button');
         detailsButton.textContent = 'Detalhes';
-        detailsButton.onclick = () => alert(`Detalhes da ${team.name}`);
+        detailsButton.onclick = () => window.location.href = "/frontend/views/tarefas.html";
         li.appendChild(detailsButton);
 
         teamList.appendChild(li);
@@ -59,6 +59,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   document.getElementById('add-team-btn').addEventListener('click', () => {
-    window.location.href = 'CriarEquipe.html'; // Substituair para link correto
+    window.location.href = '/frontend/views/CriarEquipe.html';
   });
 });
