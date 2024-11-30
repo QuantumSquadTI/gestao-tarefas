@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../styles/login.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Login</title>
+</head>
+<body>
+  	<div class="container">
+    	<form class="card" id="formLogin">
+			<h1> Login </h1>
+
+			<div class="label-float" name="email">
+				<label id="emailLabel" for="email">E-mail</label>
+				<input type="emailLabel" id="email" placeholder="Seu email cadastrado" required>
+			</div>
+
+			<div class="label-float" name="senha">
+				<label id="senhaLabel" for="senha">Senha</label>
+				<input type="password" id="senha" placeholder="Senha do usuário cadastrado" required>
+				<i class="fa fa-eye fa-eye-slash" aria-hidden="true" id="verSenha"></i>
+			</div>
+
+			<div>
+				<input type="checkbox" name="lembre" id="lembre">
+				<label for="lembre" id="lembre2">Lembre-me</label>
+			</div>
+
+			<div class="justify-center wrap" name="botão">
+				<button class="btn custom-btn" type="submit"><span>Login</span></button>
+			</div>
+
+			<p>
+				Não tem Cadastro?
+				<a href="../views/cadastro.html"> Cadastre-se</a>
+			</p>
+
+		</form>
+  	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  	<script src="/frontend/scripts/login.js"></script>
+</body>
+</html>

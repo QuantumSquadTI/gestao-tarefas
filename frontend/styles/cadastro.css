@@ -1,0 +1,174 @@
+* {
+  font-family: "PT Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  font-size: 62.5%;
+}
+
+body {
+  background-image: url("../assets/image/background.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed
+}
+
+h1 {
+  color: rgb(8, 42, 68);
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+p{
+  font-size: 2rem;
+}
+
+a{
+  color: #aaa8be;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all .3s ease-out;
+  margin-left: 0.5rem;
+}
+
+a:hover{
+  color: #272262;
+}
+
+button{
+  background-color: transparent;
+  border-color: #0d009c;
+  color: #0d009c;
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-top: 0.7rem;
+  margin-bottom: 1rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  outline: none;
+  transition: all .4s ease-out;
+}
+
+button:hover{
+  background-color: #0d009c;
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10rem;
+}
+
+.card {
+  background-color: white;
+  padding: 3rem;
+  border-radius: 4%;
+  box-shadow: 0.3rem 0.3rem 0.1rem 0rem #00000060;
+  width: 40rem;
+}
+
+.label-float {
+  font-size: 2rem; 
+  position: sticky;
+  padding-top: 2.5rem; 
+  margin-top: 5%; 
+  margin-bottom: 5%;
+}
+
+.label-float input{
+  width: 100%;
+  padding: 0.5rem 0.5rem;
+  display: inline-block;
+  border: 0;
+  border-bottom: 0.2rem solid #000000;
+  background-color: transparent;
+  outline: none;
+  min-width: 18rem;
+  font-size: 1.6rem;
+  transition: all .3s ease-out;
+  border-radius: 0;
+}
+
+.label-float label {
+  font-size: 1.8rem; 
+
+  pointer-events: none;
+  position: absolute;
+  top: 1rem; 
+  left: 1rem; 
+  margin-top: 0;
+  transition: all 0.3s ease-out;
+}
+
+.label-float input:focus{
+  border-bottom: 0.2rem solid #7267e9;
+}
+
+.label-float label{
+  color: #1809c6;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 1.3rem;
+  transition: all .3s ease-out;
+}
+
+.label-float input:focus + label,
+.label-float input:valid + label{
+  font-size: 1.3rem;
+  margin-top: 0;
+  color: #4038a0
+}
+
+.justify-center{
+  display: flex;
+  justify-content: center;
+}
+
+.fa-eye{
+  position: absolute;
+  top: 1.5rem;
+  right: 1rem;
+  cursor: pointer;
+  color: #1306a3;
+}
+
+.fa-eye-slash {
+  position: absolute;
+  top: 50%;
+  right: 1rem; 
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #aaa;
+}
+
+.frame {
+  width: 90%;
+  margin: 4rem auto;
+  text-align: center;
+}
+
+#msgError{
+  text-align: center;
+  color: #ff0000;
+  background-color: #ffbbbb;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  display: none;
+}
+
+#msgSuccess{
+  text-align: center;
+  color: #00bb00;
+  background-color: #bbffbe;
+  padding: 1rem;
+  border-radius: 0.4rem;
+  display: none;
+}

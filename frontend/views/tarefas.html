@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban com Dados Dinâmicos</title>
+  <link rel="stylesheet" href="../styles/tarefas.css">
+</head>
+<body>
+  <div class="header">
+    <h1>Painel de Tarefas</h1>
+    <button id="toggle-view">Alternar para Lista</button>
+  </div>
+
+  <div class="board kanban-view">
+    <div class="kanban-column">
+      <h3>Pendente</h3>
+      <div class="task-list" id="pending-tasks">
+        <!-- Tarefas pendentes -->
+        <div class="task">
+          <h4>Tarefa 1</h4>
+          <p>Descrição 1</p>
+          <p><strong>Responsável:</strong> Nome</p>
+        </div>
+        <div class="task">
+          <h4>Tarefa 2</h4>
+          <p>Descrição 2</p>
+          <p><strong>Responsável:</strong> Nome</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="kanban-column">
+      <h3>Em Andamento</h3>
+      <div class="task-list" id="in-progress-tasks">
+        <!-- Tarefas em andamento -->
+        <div class="task">
+          <h4>Tarefa 3</h4>
+          <p>Descrição 3</p>
+          <p><strong>Responsável:</strong> Nome</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="kanban-column">
+      <h3>Concluído</h3>
+      <div class="task-list" id="completed-tasks">
+        <!-- Tarefas concluídas -->
+        <div class="task">
+          <h4>Tarefa 4</h4>
+          <p>Descrição 4</p>
+          <p><strong>Responsável:</strong> Nome</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/frontend/scripts/logout.js"></script>
+  <script src="/frontend/scripts/tarefas.js"></script>
+</body>
+</html>
